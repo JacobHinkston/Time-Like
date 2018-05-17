@@ -32,10 +32,12 @@ header nav{
   margin-left: 5%;
   margin-right: 5%;
   background-color: rgb(245, 95, 46);
-  border: 1px solid black;
+  border: 1px solid grey;
+  border-radius: 3px;
 
 }
 header a{
+  border-left: 1px solid grey;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,4 +54,12 @@ header a{
 }
 header p:hover, header a:hover{
   background-color: rgb(255, 140, 70)
+}
+.component-about{
+  margin-left:5%;
+  margin-right:5%;
+}
+.component-about h1{
+  font-size: 35px;
+  text-align: center;
 }

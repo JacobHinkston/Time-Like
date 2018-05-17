@@ -17,9 +17,6 @@ class App extends Component {
       display: link
     })
   }
-  componentDidMount(){
-    console.log("App loaded")
-  }
   render() {
     return (
       <div className="App">

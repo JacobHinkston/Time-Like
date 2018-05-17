@@ -13,10 +13,11 @@ class Header extends Component{
     }
     displayLogin(){
         if(this.state.loggedIn){
-            alert("READ! \n\n Instagram has send you a cookie that has authenticated this computer; \n To sign into another account you have to clear the instagram api cookies in your browsers settings.")
+            alert("READ! \n\n Instagram has send you a cookie that has authenticated this computer; \n To sign into another account you have to clear the instagram api cookies in your browsers settings. \n")
         }
     }
     handleClick(event){
+        event.preventDefault()
         const link = event.target.textContent
         this.setState({
             display: link
