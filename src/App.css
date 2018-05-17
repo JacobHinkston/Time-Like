@@ -1,0 +1,55 @@
+/*HEADER*/
+.App{
+  font-family: Helvetica;
+  margin: 10px;
+}
+header{
+  display: flex;
+  border-bottom: 1px solid grey;
+  
+}
+header section{
+  display: flex;
+  flex:3;
+  align-items: center;
+  margin-left: 5%;
+  
+}
+header section h1{
+  font-size: 50px;
+} 
+header section img{
+  width: 200px;
+  height: auto;
+  padding-left: 10px;
+}
+header nav{
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  margin: 2%;
+  margin-left: 5%;
+  margin-right: 5%;
+  background-color: rgb(245, 95, 46);
+  border: 1px solid black;
+
+}
+header a{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  margin: 0;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-decoration: none;
+  color: white;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+
+}
+header p:hover, header a:hover{
+  background-color: rgb(255, 140, 70)
+}
