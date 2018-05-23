@@ -19,7 +19,13 @@ const About = () => {
                 <p>
                     This is solved by analyzing data from instagram to find at what time of the day, to post, based on how many likes you recieved at any said time.
                     Unfortunately, without advanced buisness tools, I cannot account for how many followers a person had at any time durring their instagram account's growth,so there is a slight skew. 
-                </p>     
+                </p>
+                <h3>
+                    How do you use Time-Like?
+                </h3>
+                <p>
+                    First, sign in above by hitting the 'Login Button', then it will do the rest! Sign into instagram through instagrams secure login page. Once authenticated, it will redirect you to the app and it will being doing everything for you :)
+                </p>
             </section>   
         </section>
     )

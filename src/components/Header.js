@@ -5,8 +5,8 @@ class Header extends Component{
     constructor(props){
         super(props)
         this.state = {
-            loggedIn: false,
-            display: ""
+            loggedIn: props.loggedIn,
+            accessToken: props.accessToken,
         }
         this.displayLogin = this.displayLogin.bind(this)
         this.handleClick = this.handleClick.bind(this)
@@ -19,21 +19,7 @@ class Header extends Component{
     handleClick(event){
         event.preventDefault()
         const link = event.target.textContent
-        this.setState({
-            display: link
-        })
         this.props.changeDisplay(link)
-    }
-    componentDidMount(){
-        if(window.location.href.indexOf('=') !== -1){
-            this.setState({
-                loggedIn: true
-            })
-        }else{
-            this.setState({
-                loggedIn: false
-            })
-        }
     }
     render(props){
         return(
@@ -54,16 +40,19 @@ class Header extends Component{
                         href="#"
                         onClick={this.handleClick}
                     >About</a>
-                    
                     <a
                         href={connection.ig_connection_url}
                         onClick={this.displayLogin}
-                    >{(
+                    >
+                    {(
                         this.state.loggedIn?
                         "Sign Out":
                         "Login"
-                    )}</a>
+                    )}
+                    </a>
                 </nav>
+                
+                
             </header>
         )
     }
