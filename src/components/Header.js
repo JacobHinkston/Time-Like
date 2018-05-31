@@ -12,8 +12,9 @@ class Header extends Component{
         this.handleClick = this.handleClick.bind(this)
     }
     displayLogin(){
-        if(this.state.loggedIn){
-            alert("READ! \n\n Instagram has send you a cookie that has authenticated this computer; \n To sign into another account you have to clear the instagram api cookies in your browsers settings. \n")
+        console.log(this.state.loggedIn)
+        if (this.state.loggedIn){
+            alert('You will now be redirected to instagrams website where you can loggout.')
         }
     }
     handleClick(event){
@@ -41,7 +42,11 @@ class Header extends Component{
                         onClick={this.handleClick}
                     >About</a>
                     <a
-                        href={connection.ig_connection_url}
+                        href={(
+                            this.state.loggedIn?
+                            "https://www.instagram.com":
+                            connection.ig_connection_url
+                        )}
                         onClick={this.displayLogin}
                     >
                     {(

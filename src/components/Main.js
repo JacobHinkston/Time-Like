@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import About from './About.js'
 import Home from './Home.js'
+
 import connection from '../assets/connection.js'
 import loadingPic from '../assets/loading.gif'
 class Main extends Component{
@@ -55,7 +56,7 @@ class Main extends Component{
         
         else{ return(
             <section className='section-loading'>
-                <img src={loadingPic}/>
+                <img src={loadingPic} alt='#'/>
             </section>
         )}
 
