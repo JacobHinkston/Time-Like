@@ -14,7 +14,7 @@ class Header extends Component{
     displayLogin(){
         console.log(this.state.loggedIn)
         if (this.state.loggedIn){
-            alert('You will now be redirected to instagrams website where you can loggout.')
+            alert('You will now be redirected to instagrams website where you can loggout. \n Once you logout, revist this site to log into another account')
         }
     }
     handleClick(event){

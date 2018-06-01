@@ -20,7 +20,6 @@ class GraphTimeLike extends Component{
             likes_Time.x.push(post.postDate.getFullYear().toString().substring(2)+"'"+(i+1))
             likes_Time.y.push(post.postLikes)
         }
-        console.log(likes_Time)
         return likes_Time
     }
     render(){
@@ -35,18 +34,18 @@ class GraphTimeLike extends Component{
             }]
         }
         return(
-            <div className="chart">
+            <div className="component-graph graphtimelike">
                 <Line
                     data={chartData}
                     options={{
                         title:{
                             display:true,
-                            text:'Likes over time:',
-                            fontSize:12
+                            text:'Likes over time - Year&Post VS Likes',
+                            fontSize:40
                     },
                     legend:{
                         display:true,
-                        position:'right'
+                        position:'top'
                     }
                 }}
                 />

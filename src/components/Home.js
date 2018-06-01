@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import GraphTimeLike from './Graphs/GraphTimeLike.js'
+import GraphTimeODLike from './Graphs/GraphTimeODLikes.js'
 class Home extends Component{
     constructor(props){
         super(props)
         this.state={
             userInfo: props.userInfo,
-            userPosts: props.userPosts
-
+            userPosts: props.userPosts,
+            mostLikedPicture: {}
         }
         this.parseUserPosts = this.parseUserPosts.bind(this)
+        this.findMostLikedPost = this.findMostLikedPost.bind(this)
     }
     parseUserPosts(){
         return this.state.userPosts['data'].map(post => {
@@ -16,12 +18,38 @@ class Home extends Component{
                 return ({
                     postDate: new Date(post['created_time'] * 1000),
                     postUrl: post['images']['standard_resolution']['url'],
-                    postLikes: post['likes']['count']
+                    postLikes: post['likes']['count'],
+                    postCaption: post['caption']['text']
                 })
             }
         }).reverse()
     }
+    findMostLikedPost(){
+        var parsedUserData = this.parseUserPosts()
+        var mostLikedPicture = {
+            postDate: parsedUserData[0].postDate,
+            postUrl: parsedUserData[0].postUrl,
+            postLikes: parsedUserData[0].postLikes,
+            postCaption: parsedUserData[0].postCaption
+        }
+        for (var i = 0; i < parsedUserData.length; i++) {
+            if (parsedUserData[i].postLikes > mostLikedPicture.postLikes) {
+                mostLikedPicture.postDate = parsedUserData[i].postDate
+                mostLikedPicture.postUrl = parsedUserData[i].postUrl
+                mostLikedPicture.postLikes = parsedUserData[i].postLikes
+                mostLikedPicture.postCaption = parsedUserData[i].postCaption
+            }
+        }
+        this.setState({
+            mostLikedPicture: mostLikedPicture
+        })
+    }
+    componentDidMount(){
+        this.findMostLikedPost()
+    }
+
     render(props){
+        
         return(
             <section className='component-home'>
                 <h1>
@@ -41,8 +69,24 @@ class Home extends Component{
                         <p><span className='bold'>{this.state.userInfo['data']['full_name']}</span>{this.state.userInfo['data']['bio']}</p>
                     </div>
                 </section>
+                <section className = 'most-liked-post'>
+                    <h1>Your most liked picture!</h1>
+                    <section className='most-liked-picture'>
+                        <img src={this.state.mostLikedPicture.postUrl}/>
+                    </section>
+                    <section className='most-liked-post-caption'>
+                        <h3>{this.state.mostLikedPicture.postLikes} <span className='bold'> likes</span></h3>
+                        <p><span className='bold'> {this.state.userInfo['data']['username']}</span> {this.state.mostLikedPicture.postCaption}</p>
+                    </section>
+                    
+                </section>
                 <section className='graph-data'>
                     <GraphTimeLike 
+                        userInfo={this.userInfo}
+                        userPosts={this.userPosts}
+                        parsedUserInfo={this.parseUserPosts()}
+                    />
+                    <GraphTimeODLike
                         userInfo={this.userInfo}
                         userPosts={this.userPosts}
                         parsedUserInfo={this.parseUserPosts()}
@@ -54,7 +98,3 @@ class Home extends Component{
 
 }
 export default Home
-
-/*
-
-*/
