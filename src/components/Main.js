@@ -14,6 +14,10 @@ class Main extends Component{
             userPosts: {},
             dataIsLoaded: false
         }
+        this.handleClick = this.handleClick.bind(this)
+    }
+    handleClick(event){
+        window.location.href = connection.ig_connection_url
     }
     componentDidMount(){
         if(this.state.loggedIn){
@@ -49,8 +53,9 @@ class Main extends Component{
             <About/>
         )}
         else if(!this.state.loggedIn){ return(
-            <section className='section-loading'>
-                <h1>login above!</h1>
+            <section className='section-not-logged-in'>
+                <h3>You dont apear to be logged in to instagram on this device.</h3>
+                <button onClick={this.handleClick}>Login</button>
             </section>
         )}
         

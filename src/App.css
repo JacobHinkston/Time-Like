@@ -64,19 +64,42 @@ header a:hover{
   text-align: center;
 }
 
-.section-loading{
+.section-not-logged-in, .section-loading{
   margin-left:5%;
   margin-right:5%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  
+}
+.section-loading{
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 .section-loading img{
   width: 30%;
   height: auto;
 }
-.section-loading h1{
-  font-size: 100px;
+.section-not-logged-in h3{
+  text-align: center;
+}
+.section-not-logged-in button{
+  margin-left:44.5%;
+  background-color: rgb(245, 95, 46);
+  color: white;
+  border-radius: 5px;
+  font-size: 40px;
+  border: 0px;
+  padding: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+  
+}
+.section-not-logged-in button:hover{
+  border: 1px solid black;
+  padding: 9px;
+  padding-left: 39px;
+  padding-right: 39px;
 }
 .component-home{
   margin-left: 5%;
@@ -125,9 +148,10 @@ header a:hover{
   border-bottom: 1px solid grey;
   padding-bottom: 29.05px;
 }
-.most-liked-post h1{
+.most-liked-post h2{
   margin-top: 29.05px;
   margin-bottom: 29.05px;
+  text-align: center;
 }
 .most-liked-picture{
   display: flex;
@@ -148,8 +172,42 @@ header a:hover{
 .most-liked-post-caption h3, p{
   display: block;
 }
+.error{
+  text-align: center;
+  color: red;
+
+}
 .component-graph{
   border-bottom: 1px solid grey;
   padding-top: 29.05px;
   padding-bottom: 29.05px;
+}
+.component-footer{
+  display: flex;
+  position: sticky;
+  bottom: 0px;
+  padding: 20px;
+  margin-top: 29.05px;
+
+}
+.component-footer p{
+  flex: 5;
+}
+.component-footer a{
+  float: right;
+}
+.graph-options{
+  margin-top: 29.05px;
+}
+.graph-options label{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+}
+.graph-options input{
+  margin: 0;
+}
+.graph-options input:checked ~ .checkmark {
+  background-color: #2196F3;
 }

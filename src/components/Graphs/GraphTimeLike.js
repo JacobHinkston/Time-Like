@@ -15,7 +15,7 @@ class GraphTimeLike extends Component{
             x: [],
             y: []
         }
-        for(var i=0; i<this.state.parsedUserInfo.length; i++){
+        for(var i=0; this.state.parsedUserInfo && i<this.state.parsedUserInfo.length; i++){
             var post = this.state.parsedUserInfo[i]
             likes_Time.x.push(post.postDate.getFullYear().toString().substring(2)+"'"+(i+1))
             likes_Time.y.push(post.postLikes)
@@ -33,24 +33,31 @@ class GraphTimeLike extends Component{
                 ]
             }]
         }
-        return(
-            <div className="component-graph graphtimelike">
-                <Line
-                    data={chartData}
-                    options={{
-                        title:{
-                            display:true,
-                            text:'Likes over time - Year&Post VS Likes',
-                            fontSize:40
-                    },
-                    legend:{
-                        display:true,
-                        position:'top'
-                    }
-                }}
-                />
-            </div>
-        )
+        if(!this.state.parsedUserInfo) return(<div></div>)
+        else{
+            return(
+                <div className="component-graph graphtimelike">
+                
+                    <Line
+                        data={chartData}
+                        options={
+                            {
+                            title:{
+                                display:true,
+                                text:'Likes Over Time',
+                                fontSize:30
+                            },
+                            legend:{
+                                display:true,
+                                position:'top'
+                            }
+                            }
+                        }
+                    />
+                </div>
+            )
+        }
+        
     }
 }
 export default GraphTimeLike

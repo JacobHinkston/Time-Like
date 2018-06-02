@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import Header from './components/Header.js'
 import Main from './components/Main.js'
+import Footer from './components/Footer.js'
 import connection from './assets/connection.js'
+
 class App extends Component {
   constructor(props){
     super(props)
@@ -28,6 +30,7 @@ class App extends Component {
           loggedIn={this.state.loggedIn}
           accessToken={this.state.accessToken}
         />
+        <Footer/>
       </div>
     )
   }

@@ -51,7 +51,7 @@ class Header extends Component{
                     >
                     {(
                         this.state.loggedIn?
-                        "Sign Out":
+                        "Logout":
                         "Login"
                     )}
                     </a>
