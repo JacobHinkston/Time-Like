@@ -12,6 +12,7 @@ class Main extends Component{
             accessToken: props.accessToken,
             userInfo: {},
             userPosts: {},
+            mostLikedPost: undefined,
             dataIsLoaded: false
         }
         this.handleClick = this.handleClick.bind(this)
@@ -19,6 +20,7 @@ class Main extends Component{
     handleClick(event){
         window.location.href = connection.ig_connection_url
     }
+    
     componentDidMount(){
         if(this.state.loggedIn){
             const accessToken = window.location.href.split('=')[1]
@@ -43,10 +45,12 @@ class Main extends Component{
 
     render(props){
         const dataIsLoaded = this.state.dataIsLoaded
-        if(this.props.display === "Home" && dataIsLoaded){return(
+        if(this.props.display === "Home" && dataIsLoaded){
+            return(
             <Home
                 userInfo={this.state.userInfo}
                 userPosts={this.state.userPosts}
+                mostLikedPost={this.state.mostLikedPost}
             />
         )}
         else if(this.props.display === "About"){ return(

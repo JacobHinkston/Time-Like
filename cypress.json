@@ -1,1 +1,5 @@
-{ 'baseUrl': !, 'videoRecording': false}
+{
+    "baseUrl": "http://localhost:3000",
+    "video": false
+  }
+  

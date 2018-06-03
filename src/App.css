@@ -177,6 +177,16 @@ header a:hover{
   color: red;
 
 }
+.recommended-post-time{
+  text-align: center;
+  color: rgb(102,102,102);
+  margin-left: 30%;
+  margin-right: 30%;
+  padding: 10px;
+  border: 1px solid rgb(245, 95, 46);
+  border-radius: 5px; 
+
+}
 .component-graph{
   border-bottom: 1px solid grey;
   padding-top: 29.05px;
