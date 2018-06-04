@@ -9,9 +9,12 @@ class Home extends Component{
         this.state={
             userInfo: props.userInfo,
             userPosts: props.userPosts,
-            parsedUserData: undefined
+            parsedUserData: undefined,
+            bestPostTime: undefined,
+            bestPostDay: undefined
         }
         this.parseUserData = this.parseUserData.bind(this)
+        this.bestPostTime = this.bestPostTime.bind(this)
     }
     parseUserData(){
         var media = this.state.userInfo['data']['counts']['media']!==0
@@ -29,6 +32,11 @@ class Home extends Component{
             this.setState({parsedUserData: parsedUserData})
         }
     }
+    bestPostTime(key, value){
+        this.setState({
+            key: value
+        })
+    }
     componentDidMount(){
         this.parseUserData()
     }
@@ -44,8 +52,32 @@ class Home extends Component{
             graphData= (
                 <section className='graph-data'>
                     <Graph_LikesOverTime parsedUserData={parsedUserData}/>
-                    {/* <Graph_LikesOnDay parsedUserData={parsedUserData}/> */}
-                    <Graph_LikesAtTime parsedUserData={parsedUserData}/>
+                    <Graph_LikesOnDay 
+                        parsedUserData={
+                            parsedUserData.map(post => {
+                                return({
+                                    postDay: post.postDate.getDay(),
+                                    postLikes: post.postLikes
+                                })
+                            }).sort((post1, post2) => {
+                                return(post1.postDay - post2.postDay)
+                            })
+                        }
+                        bestPostTime = {this.bestPostTime}
+                    />
+                    <Graph_LikesAtTime 
+                        parsedUserData={
+                            parsedUserData.map(post => {
+                                return({
+                                    postTime: post.postDate.getHours(),
+                                    postLikes: post.postLikes
+                                })
+                            }).sort((post1, post2) => {
+                                return(post1.postTime - post2.postTime)
+                            })
+                        }
+                        bestPostTime = {this.bestPostTime}
+                    />
                 </section>
             )
             mostLikedPost = (
@@ -54,6 +86,7 @@ class Home extends Component{
                     userInfo={this.state.userInfo}
                 />
             )
+            var bestPostTime = (<h2> You should post pictures on {this.state.bestPostDay} at {this.state.bestPostTime} </h2>)
         }else{
             mostLikedPost = (<h3 className='error'>You dont have a most liked post!</h3>)
             graphData = (<h3 className='error'>No data to analyze, </h3>)
@@ -79,6 +112,7 @@ class Home extends Component{
                 </section>
                 {mostLikedPost}
                 {graphData}
+                {bestPostTime}
                 
             </section>
         )

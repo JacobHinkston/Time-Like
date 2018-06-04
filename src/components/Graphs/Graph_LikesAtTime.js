@@ -5,33 +5,21 @@ class Graph_LikesAtTime extends Component{
     constructor(props){
         super(props)
         this.state = { parsedUserData: props.parsedUserData }
-        this.sortByTime = this.sortByTime.bind(this)
+        this.parseGraphData = this.parseGraphData.bind(this)
         this.calculateAverageLikes = this.calculateAverageLikes.bind(this)
+        this.calculateGraphColors = this.calculateGraphColors.bind(this)
     }
-
-    sortByTime(){
-        var parsedUserData = this.state.parsedUserData
-        if(parsedUserData){
-            parsedUserData.sort((post1, post2) => {
-                var time1 = post1.postDate.getHours()
-                var time2 = post2.postDate.getHours()
-                return(time1-time2)
-            })
-            this.setState({ parsedUserData: parsedUserData })
-        }
-    }
-
-    calculateAverageLikes(){
+    parseGraphData(){
         if(this.state.parsedUserData){
             const defaultColor = 'rgba(245, 95, 46, 0.6)'
             var graphData = {
                 x: [],
                 y: [],
-                colors:[],
+                graphColors:[],
                 recommendedPostTime: undefined
             }
             this.state.parsedUserData.forEach(post => {
-                var militaryPostTime = post.postDate.getHours()
+                var militaryPostTime = post.postTime
                 var timeParse = (militaryPostTime + 12) % 12
                 var timeOfPost;
                 if (timeParse === militaryPostTime) timeOfPost = (timeParse + "am")
@@ -40,43 +28,72 @@ class Graph_LikesAtTime extends Component{
                 graphData.x.push(timeOfPost)
                 graphData.y.push(post.postLikes)
             })
-            for(var i=0; i<graphData.x.length; i++){
-                if(graphData.x[i]===graphData.x[i+1]){
-                    var numLikes = graphData.y[i]
-                    var count = 1;
-                    for(var j=i; j<graphData.x.length && graphData.x[j]===graphData.x[i]; j++, count++){
-                        numLikes+=graphData.y[j]
-                    }
-                    graphData.y[i] = numLikes / count
-                    graphData.x[i] += " - (" + count + " posts)"
-                    graphData.y.splice(i+1, count-1)
-                    graphData.x.splice(i+1, count-1)
-                    i-=(count-1)
-                }
-            }
-            var recommendedPostTime = graphData.y[0]
-            for(i=0; i<graphData.y.length; i++){
-                if(graphData.y[i] > recommendedPostTime){
-                    graphData.colors.push('rgba(255,215,0,0.6)')
-                    recommendedPostTime = graphData.x[i]
-                } 
-                else graphData.colors.push(defaultColor)
-            }
-            graphData.recommendedPostTime = recommendedPostTime;
+            graphData = this.calculateAverageLikes(graphData)
+            var calculatedGraphColors = this.calculateGraphColors(graphData.y, graphData.x)
+            graphData.graphColors = calculatedGraphColors.graphColors
+            graphData.recommendedPostTime = calculatedGraphColors.mostLikedPostTime.split(' ')[0]
             return graphData
         }else return undefined
     }
-
-    componentDidMount(){
-        this.sortByTime()
+    calculateAverageLikes(graphData){
+        for(var i=0; i<graphData.x.length-1; i++){
+            var postLikes = graphData.y[i]
+            var countOfPosts = 1
+            if(graphData.x[i] === graphData.x[i+1]){ for(
+                var j=i+1;
+                j<graphData.x.length
+                &&
+                graphData.x[i]===graphData.x[j];
+                j++,
+                countOfPosts++
+                ){
+                    postLikes+=graphData.y[j]
+                }
+                graphData.x[i]+=(' - (' + countOfPosts + ' posts)')
+                graphData.y[i] = postLikes/countOfPosts
+                graphData.x.splice(i+1, countOfPosts-1)
+                graphData.y.splice(i+1, countOfPosts-1)
+            }
+        }
+        return graphData
     }
+    calculateGraphColors(yGraphData, xGraphData){
+        const lowColor = 'rgba(255,0,0, 0.6)'
+        const mediumColor = 'rgba(255,255,0,0.6)'
+        const medhighColor = 'rgba(255, 128, 0, 0.6)'
+        const highColor = 'rgba(0,255,0, 0.6)'
+        
+        var mostLikedPost = yGraphData[0], mostLikedPostTime = xGraphData[0]
+        var leastLikedPost = yGraphData[0]
+        for(var i=0;i<yGraphData.length; i++){
+            if(yGraphData[i] > mostLikedPost){
+                mostLikedPost = yGraphData[i]
+                mostLikedPostTime = xGraphData[i]
+            } 
+            if(yGraphData[i] < leastLikedPost) leastLikedPost = yGraphData[i]
+        }
+        var threshHold = mostLikedPost-leastLikedPost;
+        var lowThreshhold = leastLikedPost + threshHold*(1/3)
+        var medThreshhold = leastLikedPost + threshHold*(2/3)
 
+        var graphColors = yGraphData.map(data => {
+            if(data <= lowThreshhold) return lowColor
+            else if(data <= medThreshhold) return mediumColor
+            else if(data > medThreshhold && data < mostLikedPost) return medhighColor
+            else return highColor
+        })
+        return {
+            graphColors: graphColors,
+            mostLikedPostTime: mostLikedPostTime
+        }
+    }
     render(){
-        const graphData = this.calculateAverageLikes()
+        const graphData = this.parseGraphData()
         if(graphData){
+            //this.props.bestPostTime('bestPostTime', graphData.recommendedPostTime)
             const xData = graphData.x
             const yData = graphData.y
-            const colors = graphData.colors
+            const colors = graphData.graphColors
             const chartData = {
                 labels: xData,
                 datasets: [{
@@ -87,7 +104,6 @@ class Graph_LikesAtTime extends Component{
             }
             return(
                 <div className="component-graph graphtimeodlike">
-                    
                     <Bar
                         data={chartData}
                         options={

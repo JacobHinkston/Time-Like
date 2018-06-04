@@ -12,7 +12,6 @@ class Main extends Component{
             accessToken: props.accessToken,
             userInfo: {},
             userPosts: {},
-            mostLikedPost: undefined,
             dataIsLoaded: false
         }
         this.handleClick = this.handleClick.bind(this)
@@ -50,7 +49,6 @@ class Main extends Component{
             <Home
                 userInfo={this.state.userInfo}
                 userPosts={this.state.userPosts}
-                mostLikedPost={this.state.mostLikedPost}
             />
         )}
         else if(this.props.display === "About"){ return(

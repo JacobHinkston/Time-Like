@@ -5,50 +5,18 @@ class Graph_LikesOnDay extends Component{
     constructor(props){
         super(props)
         this.state={ parsedUserData: props.parsedUserData }
-        this.sortByDay = this.sortByDay.bind(this)
+        this.parseGraphData = this.parseGraphData.bind(this)
         this.calculateAverageLikes = this.calculateAverageLikes.bind(this)
-        
+        this.calculateGraphColors = this.calculateGraphColors.bind(this)
     }
-
-    sortByDay(){
-        var parsedUserData = this.state.parsedUserData
-        /*Had to use bubble sort because .sort() wasnt working for this instance
-        if(parsedUserData){
-            for(var i=0; i<parsedUserData.length-1; i++){
-                for(var j=0; j<parsedUserData.length-i-1; j++){
-                    if(parsedUserData[j+1].postDate.getDay() < parsedUserData[j].postDate.getDay()){
-                        var tempPost = parsedUserData[i]
-                        parsedUserData[j]= parsedUserData[j+1]
-                        parsedUserData[j+1] = tempPost
-                    }
-                }
-            }
-            //this.setState({parsedUserData: parsedUserData})
-        }
-       */
-        if(parsedUserData){
-            parsedUserData.sort((post1, post2) => {
-                var day1 = post1.postDate.getDay()
-                var day2 = post2.postDate.getDay()
-                return(day1-day2)
-            })
-            this.setState({ parsedUserData: parsedUserData })
-        }
-        
-    }
-    componentDidMount(){
-        this.sortByDay()
-    }
-
-    calculateAverageLikes(){
-        
+    parseGraphData(){
         if(this.state.parsedUserData){
             const defaultColor = 'rgba(245, 95, 46, 0.6)'
             var graphData = {
                 x: [],
                 y: [],
                 colors: [],
-                recomendedPostDay: undefined
+                recommendedPostDay: undefined
             }
             const daysOfWeek=[
                 'Sunday',
@@ -60,50 +28,77 @@ class Graph_LikesOnDay extends Component{
                 'Saturday'
             ]
             this.state.parsedUserData.forEach(post => {
-                console.log(daysOfWeek[post.postDate.getDay()])
-                console.log('a')
-                graphData.x.push(daysOfWeek[post.postDate.getDay()])
+                graphData.x.push(daysOfWeek[post.postDay])
                 graphData.y.push(post.postLikes)
             })
-            
-            for(var i=0; i<graphData.x.length; i++){
-                if(graphData.x[i]===graphData.x[i+1]){
-                    var numLikes = graphData.y[i]
-                    var count = 1;
-                    for(var j=i; j<graphData.x.length && graphData.x[j]===graphData.x[i]; j++, count++){
-                        numLikes+=graphData.y[j]
-                    }
-                    graphData.y[i] = numLikes / count
-                    graphData.x[i] += " - (" + count + " posts)"
-                    graphData.y.splice(i+1, count-1)
-                    graphData.x.splice(i+1, count-1)
-                    i-=(count-1)
-                }
-            }
-            
-            var recommendedPostDay = graphData.y[0]
-            for(i=0; i<graphData.y.length; i++){
-                if(graphData.y[i] > recommendedPostDay){
-                    graphData.colors.push('rgba(255,215,0,0.6)')
-                    recommendedPostDay = graphData.x[i]
-                } 
-                else graphData.colors.push(defaultColor)
-            }
-            graphData.recommendedPostDay = recommendedPostDay;
-            
+            graphData=this.calculateAverageLikes(graphData)
+            var calculatedGraphColors = this.calculateGraphColors(graphData.y, graphData.x)
+            graphData.graphColors = calculatedGraphColors.graphColors
+            graphData.recommendedPostTime = calculatedGraphColors.recommendedPostTime
+            graphData.recommendedPostDay = calculatedGraphColors.mostLikedPostDay.split(' ')[0];
             return graphData
-            
         }else return undefined
     }
+    calculateAverageLikes(graphData){
+        for(var i=0; i<graphData.x.length-1; i++){
+            var postLikes = graphData.y[i]
+            var countOfPosts = 1
+            if(graphData.x[i] === graphData.x[i+1]){ 
+                for(
+                var j=i+1;
+                j<graphData.x.length
+                &&
+                graphData.x[i]===graphData.x[j];
+                j++,
+                countOfPosts++
+                ){
+                    postLikes+=graphData.y[j]
+                }
+                graphData.x[i]+=(' - (' + countOfPosts + ' posts)')
+                graphData.y[i] = postLikes/countOfPosts
+                graphData.x.splice(i+1, countOfPosts-1)
+                graphData.y.splice(i+1, countOfPosts-1)
+            }
+        }
+        return graphData
+    }
+    calculateGraphColors(yGraphData, xGraphData){
+        const lowColor = 'rgba(255,0,0, 0.6)'
+        const mediumColor = 'rgba(255,255,0,0.6)'
+        const medhighColor = 'rgba(255, 128, 0, 0.6)'
+        const highColor = 'rgba(0,255,0, 0.6)'
+        
+        var mostLikedPost = yGraphData[0], mostLikedPostDay = xGraphData[0]
+        var leastLikedPost = yGraphData[0]
+        for(var i=0;i<yGraphData.length; i++){
+            if(yGraphData[i] > mostLikedPost){
+                mostLikedPost = yGraphData[i]
+                mostLikedPostDay = xGraphData[i]
+            } 
+            if(yGraphData[i] < leastLikedPost) leastLikedPost = yGraphData[i]
+        }
+        var threshHold = mostLikedPost-leastLikedPost;
+        var lowThreshhold = leastLikedPost + threshHold*(1/3)
+        var medThreshhold = leastLikedPost + threshHold*(2/3)
 
-
+        var graphColors = yGraphData.map(data => {
+            if(data <= lowThreshhold) return lowColor
+            else if(data <= medThreshhold) return mediumColor
+            else if(data > medThreshhold && data < mostLikedPost) return medhighColor
+            else return highColor
+        })
+        return {
+            graphColors: graphColors,
+            mostLikedPostDay: mostLikedPostDay
+        }
+    }
     render(){
-
-        const graphData = this.calculateAverageLikes()
+        const graphData = this.parseGraphData()
         if(graphData){
+            //this.props.bestPostTime('bestPostDay', graphData.recommendedPostDay)
             const xData = graphData.x
             const yData = graphData.y
-            const colors = graphData.colors
+            const colors = graphData.graphColors
             const chartData = {
                 labels: xData,
                 datasets: [{
@@ -114,7 +109,6 @@ class Graph_LikesOnDay extends Component{
             }
             return(
                 <div className="component-graph graphdaylike">
-                    <h2 className='recommended-post-time'>You should post pictures at: {graphData.recommendedPostTime}</h2>
                     <Bar
                         data={chartData}
                         options={
@@ -131,6 +125,7 @@ class Graph_LikesOnDay extends Component{
                             }
                         }
                     />
+                    <h2 className='recommended-post-time'>You should post pictures on {graphData.recommendedPostDay}</h2>
                 </div>
             )
         }else return(<div></div>)
