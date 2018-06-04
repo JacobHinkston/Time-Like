@@ -23,7 +23,6 @@ class Graph_LikesAtTime extends Component{
 
     calculateAverageLikes(){
         if(this.state.parsedUserData){
-            console.log(this.state.parsedUserData)
             const defaultColor = 'rgba(245, 95, 46, 0.6)'
             var graphData = {
                 x: [],
@@ -88,7 +87,7 @@ class Graph_LikesAtTime extends Component{
             }
             return(
                 <div className="component-graph graphtimeodlike">
-                    <h2 className='recommended-post-time'>You should post pictures at: {graphData.recommendedPostTime}</h2>
+                    
                     <Bar
                         data={chartData}
                         options={
@@ -105,6 +104,7 @@ class Graph_LikesAtTime extends Component{
                             }
                         }
                     />
+                    <h2 className='recommended-post-time'>You should post pictures around {graphData.recommendedPostTime}</h2>
                 </div>
             )
         }else return(<div></div>)

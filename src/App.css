@@ -36,9 +36,10 @@ header nav{
   margin-left: 7%;
   margin-right: 7%;
 }
-header nav a{
+header nav .nav-button{
   
   border: 1px solid rgb(245, 95, 46);
+  background-color: white;
   border-radius: 5px;
   margin-right: 10px;
   display: flex;
@@ -52,7 +53,7 @@ header nav a{
   text-align: center;
 
 }
-header a:hover{
+header .nav-button:hover{
   background-color: lightgray;
 }
 .component-about{
@@ -183,8 +184,6 @@ header a:hover{
   margin-left: 30%;
   margin-right: 30%;
   padding: 10px;
-  border: 1px solid rgb(245, 95, 46);
-  border-radius: 5px; 
 
 }
 .component-graph{
@@ -214,10 +213,4 @@ header a:hover{
   justify-content: center;
   align-items: center;
   font-size: 15px;
-}
-.graph-options input{
-  margin: 0;
-}
-.graph-options input:checked ~ .checkmark {
-  background-color: #2196F3;
 }

@@ -18,9 +18,9 @@ class Graph_LikesOverTime extends Component{
                 x: [],
                 y: []
             } 
-            for(var i=0; parsedUserData && i<parsedUserData.length; i++){
+            for(var i=0; i<parsedUserData.length; i++){
                 var post = parsedUserData[i]
-                likesOverTime.x.push(post.postDate.getFullYear().toString().substring(2)+"'"+(i+1))
+                likesOverTime.x.push(post.postDate.toDateString())
                 likesOverTime.y.push(post.postLikes)
             }
             return likesOverTime

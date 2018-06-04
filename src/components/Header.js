@@ -12,9 +12,11 @@ class Header extends Component{
         this.handleClick = this.handleClick.bind(this)
     }
     displayLogin(){
-        console.log(this.state.loggedIn)
         if (this.state.loggedIn){
             alert('You will now be redirected to instagrams website where you can loggout. \n Once you logout, revist this site to log into another account')
+            window.location.href = connection.ig_url
+        }else{
+            window.location.href = connection.ig_connection_url
         }
     }
     handleClick(event){
@@ -33,20 +35,16 @@ class Header extends Component{
                     ></img>
                 </section>
                 <nav>
-                    <a
-                        href="#"
+                    <button 
+                        className='nav-button'
                         onClick={this.handleClick}
-                    >Home</a>
-                    <a
-                        href="#"
+                    >Home</button>
+                    <button
+                        className='nav-button'
                         onClick={this.handleClick}
-                    >About</a>
-                    <a
-                        href={(
-                            this.state.loggedIn?
-                            "https://www.instagram.com":
-                            connection.ig_connection_url
-                        )}
+                    >About</button>
+                    <button 
+                        className='nav-button'
                         onClick={this.displayLogin}
                     >
                     {(
@@ -54,7 +52,7 @@ class Header extends Component{
                         "Logout":
                         "Login"
                     )}
-                    </a>
+                    </button>
                 </nav>
                 
                 

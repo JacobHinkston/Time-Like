@@ -44,7 +44,7 @@ class Home extends Component{
             graphData= (
                 <section className='graph-data'>
                     <Graph_LikesOverTime parsedUserData={parsedUserData}/>
-                    <Graph_LikesOnDay parsedUserData={parsedUserData}/>
+                    {/* <Graph_LikesOnDay parsedUserData={parsedUserData}/> */}
                     <Graph_LikesAtTime parsedUserData={parsedUserData}/>
                 </section>
             )

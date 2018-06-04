@@ -26,6 +26,8 @@ const About = () => {
                 <p>
                     First, sign in above by hitting the 'Login Button', then it will do the rest! Sign into instagram through instagrams secure login page. Once authenticated, it will redirect you to the app and it will being doing everything for you :)
                 </p>
+                <h3> Releases: </h3>
+                <p> Currently, TimeLike is still in a beta stage, I made a graph to display the likes by days, but I was running into issues so I will have to add that later in time </p>
             </section>   
         </section>
     )

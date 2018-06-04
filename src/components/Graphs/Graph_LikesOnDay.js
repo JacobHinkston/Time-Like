@@ -7,6 +7,7 @@ class Graph_LikesOnDay extends Component{
         this.state={ parsedUserData: props.parsedUserData }
         this.sortByDay = this.sortByDay.bind(this)
         this.calculateAverageLikes = this.calculateAverageLikes.bind(this)
+        
     }
 
     sortByDay(){
@@ -35,8 +36,12 @@ class Graph_LikesOnDay extends Component{
         }
         
     }
+    componentDidMount(){
+        this.sortByDay()
+    }
 
     calculateAverageLikes(){
+        
         if(this.state.parsedUserData){
             const defaultColor = 'rgba(245, 95, 46, 0.6)'
             var graphData = {
@@ -55,10 +60,12 @@ class Graph_LikesOnDay extends Component{
                 'Saturday'
             ]
             this.state.parsedUserData.forEach(post => {
+                console.log(daysOfWeek[post.postDate.getDay()])
+                console.log('a')
                 graphData.x.push(daysOfWeek[post.postDate.getDay()])
                 graphData.y.push(post.postLikes)
             })
-
+            
             for(var i=0; i<graphData.x.length; i++){
                 if(graphData.x[i]===graphData.x[i+1]){
                     var numLikes = graphData.y[i]
@@ -83,15 +90,15 @@ class Graph_LikesOnDay extends Component{
                 else graphData.colors.push(defaultColor)
             }
             graphData.recommendedPostDay = recommendedPostDay;
+            
             return graphData
+            
         }else return undefined
     }
 
-    componentDidMount(){
-        this.sortByDay()
-    }
 
     render(){
+
         const graphData = this.calculateAverageLikes()
         if(graphData){
             const xData = graphData.x
