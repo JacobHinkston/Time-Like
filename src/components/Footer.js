@@ -1,5 +1,5 @@
 import React from 'react'
-import footerImg from '../assets/timeLike.jpg'
+import footerImg from '../assets/timeLike.png'
 const Footer = () => {
     return(
         <footer className='component-footer'>

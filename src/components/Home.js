@@ -3,6 +3,7 @@ import MostLikedPost from './MostLikedPost.js'
 import Graph_LikesOverTime from './Graphs/Graph_LikesOverTime.js'
 import Graph_LikesOnDay from './Graphs/Graph_LikesOnDay.js'
 import Graph_LikesAtTime from './Graphs/Graph_LikesAtTime.js'
+import HowLame from './HowLame.js'
 class Home extends Component{
     constructor(props){
         super(props)
@@ -14,35 +15,40 @@ class Home extends Component{
             bestPostDay: undefined
         }
         this.parseUserData = this.parseUserData.bind(this)
-        this.bestPostTime = this.bestPostTime.bind(this)
+        //this.bestPostTime = this.bestPostTime.bind(this)
     }
     parseUserData(){
         var media = this.state.userInfo['data']['counts']['media']!==0
         if(media){
             var parsedUserData = this.state.userPosts['data'].map(post => {
                 if (post['type'] === 'image' || post['type'] === 'carousel') {
+                    var postCaptionText = post['caption']
+                    if(postCaptionText == null) postCaptionText="/NO CAPTION/"
+                    else postCaptionText = post['caption']['text']
                     return ({
                         postDate: new Date(post['created_time'] * 1000),
                         postUrl: post['images']['standard_resolution']['url'],
                         postLikes: post['likes']['count'],
-                        postCaption: post['caption']['text']
+                        userLikedOwnPost: post['user_has_liked']
                     })
                 }
             }).reverse().filter(post =>{ return(post !== undefined) })
             this.setState({parsedUserData: parsedUserData})
         }
     }
+    /*
     bestPostTime(key, value){
         this.setState({
             key: value
         })
     }
+    */
     componentDidMount(){
         this.parseUserData()
-
     }
+
     render(props){
-        var graphData, mostLikedPost
+        var graphData, mostLikedPost, howLame, recentPosts
         if(this.state.parsedUserData){
             var parsedUserData = this.state.parsedUserData.map(post => {
                 return({
@@ -64,7 +70,7 @@ class Home extends Component{
                                 return(post1.postDay - post2.postDay)
                             })
                         }
-                        bestPostTime = {this.bestPostTime}
+                        //bestPostTime = {this.bestPostTime}
                     />
                     <Graph_LikesAtTime 
                         parsedUserData={
@@ -77,20 +83,40 @@ class Home extends Component{
                                 return(post1.postTime - post2.postTime)
                             })
                         }
-                        bestPostTime = {this.bestPostTime}
+                        //bestPostTime = {this.bestPostTime}
                     />
                 </section>
             )
+            if(this.state.userInfo['data']['counts']['media'] > 20){
+                recentPosts = (
+                    <div className='data-recent'>
+                        <h4 >Data from the last {this.state.parsedUserData.length} posts.</h4>
+                        <h5>Some data cannot be analyzed; Instagram's API only allows data retreival for the last 20 posts of any user...</h5>
+                    </div>
+                )
+            }else {
+                recentPosts = (
+                    <div className='data-recent'>
+                        <h4>Data from the last {this.state.parsedUserData.length} posts.</h4>
+                    </div>
+                )
+            }
             mostLikedPost = (
                 <MostLikedPost 
                     parsedUserData={this.state.parsedUserData}
                     userInfo={this.state.userInfo}
                 />
             )
-            //var bestPostTime = (<h2> You should post pictures on {this.state.bestPostDay} at {this.state.bestPostTime} </h2>)
+            howLame = (
+                <HowLame
+                    parsedUserData={parsedUserData}
+                    userPostsLength={this.state.userInfo['data']['counts']['media']}
+                />
+            )
         }else{
             mostLikedPost = (<h3 className='error'>You dont have a most liked post!</h3>)
             graphData = (<h3 className='error'>No data to analyze, </h3>)
+
         }
         return( 
             <section className='component-home'>
@@ -111,10 +137,10 @@ class Home extends Component{
                         <p><span className='bold'>{this.state.userInfo['data']['full_name']}</span>{this.state.userInfo['data']['bio']}</p>
                     </div>
                 </section>
-                <h4 className='data-recent'>Data from the last 20 posts.</h4>
+                {recentPosts}
                 {mostLikedPost}
                 {graphData}
-
+                {howLame}
                 {/* {bestPostTime}  */}
                 
             </section>

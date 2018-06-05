@@ -119,7 +119,7 @@ class Graph_LikesOnDay extends Component{
                                     fontSize:25
                                 },
                                 legend:{
-                                    display: true,
+                                    display: false,
                                     position:'top'
                                 }
                             }

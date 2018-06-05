@@ -1,20 +1,27 @@
-/*HEADER*/
 .App{
-
   font-weight: lighter;
 }
+.bold{
+  font-weight: bold;
+}
+.error{
+  text-align: center;
+  color: red;
+
+}
+
+
+/* HEEADER */
 header{
   display: flex;
   background-color: rgb(60,55,55);
   color: white;
-  
 }
 header section{
   display: flex;
   flex:3;
   align-items: center;
   margin-left: 5%;
-  
 }
 header section h1{
   font-family: Brush Script MT, Brush Script Std,cursive;
@@ -53,6 +60,14 @@ header nav .nav-button{
 header .nav-button:hover{
   border-bottom: 1px solid white;
 }
+header .nav-button:focus{
+  outline: 0px;
+}
+
+
+
+
+/*COMPONENT ABOUT*/
 .component-about{
   margin-left:5%;
   margin-right:5%;
@@ -77,18 +92,21 @@ header .nav-button:hover{
   width: 60px;
   height: auto;
 }
+
+
+
+
+/*COMPONENT MAIN*/
 .section-not-logged-in, .section-loading{
   margin-left:5%;
   margin-right:5%;
   margin-top: 5%;
   margin-bottom: 5%;
-  
 }
 .section-loading{
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 .section-not-logged-in h3{
   text-align: center;
@@ -107,8 +125,6 @@ header .nav-button:hover{
   padding-left: 60px;
   padding-right: 60px;
   border-radius: 600px;
-
-  
 }
 .section-not-logged-in button:hover{
   background-color:  rgb(170, 42, 55);
@@ -124,9 +140,14 @@ header .nav-button:hover{
 }
 .intro-timelike{
   text-align: center;
-  
   margin-bottom: 50px;
 }
+
+
+
+
+
+/*COMPONENT HOME*/
 .component-home{
   margin-left: 5%;
   margin-right: 5%;
@@ -166,16 +187,21 @@ header .nav-button:hover{
   margin-bottom: 12px;
   margin-top: 12px;
 }
-
-.bold{
-  font-weight: bold;
-}
 .data-recent{
-  background-color: rgb(210,210,210);
-  margin-right: 82%;
-  color: rgb(102,102,102);
   text-align: center;
-  padding: 15px;
+  margin-top: 29.05px;
+  margin-left: 35%;
+  margin-right: 35%;
+  padding: 10px;
+  border: 1px solid grey;
+  background-color: rgb(240,240,240);
+  color: rgb(102,102,102);
+}
+.data-recent h4{
+  text-align: center;
+}
+.data-recent h5{
+  color: red;
 }
 .most-liked-post{
   border-bottom: 1px solid grey;
@@ -196,7 +222,6 @@ header .nav-button:hover{
   width: 50%;
   height: 50%;
 }
-
 .most-liked-post-caption{
   margin-left: 25%;
   margin-right: 25%;
@@ -204,43 +229,78 @@ header .nav-button:hover{
 .most-liked-post-caption h3, p{
   display: block;
 }
-.error{
-  text-align: center;
-  color: red;
-
-}
 .recommended-post-time{
   text-align: center;
   color: rgb(102,102,102);
   margin-left: 30%;
   margin-right: 30%;
-  padding: 10px;
 
 }
+
+
+
+
+
+/*GRAPH DATA*/
 .component-graph{
   border-bottom: 1px solid grey;
+}
+canvas{
+  margin-top: 29.05px;
+}
+
+
+
+
+/*COMPONENT HOW LAME*/
+.component-howlame{
+  margin-top: 29.05px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+.toggle-lame{
+  background-color: rgb(219, 42, 55);
+  color: white;
+  font-size: 25px;
+  border: 0px;
+  border-radius: 500px;
+  padding: 30px;
+}
+.toggle-lame:hover{
+  background-color:rgb(170, 42, 55); 
+}
+.lame-feedback h2, h3{
+  text-align: center;
+}
+.lame-feedback h2{
+  border: 3px solid gold;
   padding-top: 29.05px;
   padding-bottom: 29.05px;
+
+  font-size: 30px;
 }
+
+
+
+
+
+/*FOOTER*/
 .component-footer{
   display: flex;
+  align-items: center;
   padding: 10px;
   margin-top: 29.05px;
-  background-color:  rgb(60,55,55);
-
+  background-color:  rgb(65,60,60);
 }
 .component-footer p{
-  display: flex;
-  flex:40;
   align-items: center;
   color: white;
-  
-  
-  
 }
 .component-footer img{
-  float: right;
-  flex: 1;
-  width: 10px;
-  height: auto;
+  margin-left: 10px;
+  width: 20px;
+  height: 20px;
+
 }
