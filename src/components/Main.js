@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import About from './About.js'
 import Home from './Home.js'
 
+
 import connection from '../assets/connection.js'
 import loadingPic from '../assets/loading.gif'
+import instagramIco from '../assets/instagram_ico.png'
 class Main extends Component{
     constructor(props){
         super(props)
@@ -38,13 +40,10 @@ class Main extends Component{
                             })
                         })
                 })
-            
         }
     }
-
     render(props){
-        const dataIsLoaded = this.state.dataIsLoaded
-        if(this.props.display === "Home" && dataIsLoaded){
+        if(this.props.display === "Home" && this.state.dataIsLoaded){
             return(
             <Home
                 userInfo={this.state.userInfo}
@@ -56,8 +55,15 @@ class Main extends Component{
         )}
         else if(!this.state.loggedIn){ return(
             <section className='section-not-logged-in'>
+                <h1 className='intro-timelike'> TimeLike! The free instagram account analyzer! </h1>
                 <h3>You dont apear to be logged in to instagram on this device.</h3>
-                <button onClick={this.handleClick}>Login</button>
+                <div>
+                    <button onClick={this.handleClick}>
+                        Login with Instagram 
+                    </button>
+                </div>
+                <p> Click the link above, you will be take to instagrams login page. After authorizing the applications to access your personal data, you will be redirected to TimeLike where you can then look at your account analysis.</p>
+                
             </section>
         )}
         

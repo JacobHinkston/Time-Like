@@ -36,9 +36,6 @@ class Graph_LikesOverTime extends Component{
                 datasets: [{
                     label: 'Likes',
                     data: graphData.y,
-                    backgroundColor: [
-                        'rgba(245, 95, 46, 0.6)'
-                    ]
                 }]
             }
             return(
@@ -49,8 +46,8 @@ class Graph_LikesOverTime extends Component{
                             {
                             title:{
                                 display:true,
-                                text:'Likes Over Time',
-                                fontSize:30
+                                text:'- Likes over last 20 posts -',
+                                fontSize:25
                             },
                             legend:{
                                 display:true,

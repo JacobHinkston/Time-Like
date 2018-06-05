@@ -1,4 +1,7 @@
 import React from 'react'
+import instagram from '../assets/Logos/instagram-socialmedia.png'
+import linkedIn from '../assets/Logos/linkedin-socialmedia.png'
+import twitter from '../assets/Logos/twitter-socialmedia.png'
 const About = () => {
     return(
         <section className='component-about'>
@@ -26,8 +29,17 @@ const About = () => {
                 <p>
                     First, sign in above by hitting the 'Login Button', then it will do the rest! Sign into instagram through instagrams secure login page. Once authenticated, it will redirect you to the app and it will being doing everything for you :)
                 </p>
-                <h3> Releases: </h3>
-                <p> Currently, TimeLike is still in a beta stage, I made a graph to display the likes by days, but I was running into issues so I will have to add that later in time </p>
+                <h3>
+                    Contact
+                </h3>
+                <p>
+                    My names Jacob, I'm an ex-Computer Science student at the university of Colorado Boulder and now attending Galvanize Inc's Web Development immersive for Full-Stack software development, you can contact me below!
+                </p>
+                <section className='contact'>
+                    <a href='https://www.instagram.com/jacobhinkston/'><img src={instagram} alt="#"/></a>
+                    <a href='https://twitter.com/JacobHinkston'><img src={twitter} alt="#"/></a>
+                    <a href='https://www.linkedin.com/in/jacobhinkston/'><img src={linkedIn} alt="#"/></a>
+                </section>
             </section>   
         </section>
     )

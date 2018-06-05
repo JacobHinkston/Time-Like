@@ -30,6 +30,7 @@ class MostLikedPost extends Component{
     }
     componentDidMount(){
         this.findMostLikedPost()
+       
     }
 
     render(){

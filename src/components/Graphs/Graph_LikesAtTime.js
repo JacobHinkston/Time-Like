@@ -110,8 +110,8 @@ class Graph_LikesAtTime extends Component{
                             {
                                 title:{
                                     display:true,
-                                    text:'Average Likes At A Time Of Day',
-                                    fontSize:30
+                                    text:'- Average likes of a post, posted at any time of day -',
+                                    fontSize:25
                                 },
                                 legend:{
                                     display: true,

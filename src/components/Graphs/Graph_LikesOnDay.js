@@ -115,8 +115,8 @@ class Graph_LikesOnDay extends Component{
                             {
                                 title:{
                                     display:true,
-                                    text:'Average likes at a time of the week',
-                                    fontSize:30
+                                    text:'- Average likes of posts on days of the week -',
+                                    fontSize:25
                                 },
                                 legend:{
                                     display: true,

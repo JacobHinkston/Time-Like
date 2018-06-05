@@ -1,11 +1,10 @@
 import React from 'react'
+import footerImg from '../assets/timeLike.jpg'
 const Footer = () => {
     return(
         <footer className='component-footer'>
             <p> ©2018 TimeLike </p>
-            <a href="mailto:jacobhinkston@gmail.com">
-                <i className='material-icons 24dp mail'>mail</i>
-            </a>
+            <img src={footerImg}/> 
         </footer>
     )
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import headerPic from '../assets/likes.gif'
+import headerPic from '../assets/timeLike.jpg'
 import connection from '../assets/connection.js'
 class Header extends Component{
     constructor(props){
@@ -28,7 +28,7 @@ class Header extends Component{
         return(
             <header>
                 <section>
-                    <h1>Time Like</h1>
+                    <h1>Time Like </h1>
                     <img 
                         src={headerPic} 
                         alt="#"

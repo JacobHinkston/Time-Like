@@ -28,7 +28,7 @@ class Home extends Component{
                         postCaption: post['caption']['text']
                     })
                 }
-            }).reverse()
+            }).reverse().filter(post =>{ return(post !== undefined) })
             this.setState({parsedUserData: parsedUserData})
         }
     }
@@ -39,6 +39,7 @@ class Home extends Component{
     }
     componentDidMount(){
         this.parseUserData()
+
     }
     render(props){
         var graphData, mostLikedPost
@@ -86,7 +87,7 @@ class Home extends Component{
                     userInfo={this.state.userInfo}
                 />
             )
-            var bestPostTime = (<h2> You should post pictures on {this.state.bestPostDay} at {this.state.bestPostTime} </h2>)
+            //var bestPostTime = (<h2> You should post pictures on {this.state.bestPostDay} at {this.state.bestPostTime} </h2>)
         }else{
             mostLikedPost = (<h3 className='error'>You dont have a most liked post!</h3>)
             graphData = (<h3 className='error'>No data to analyze, </h3>)
@@ -110,9 +111,11 @@ class Home extends Component{
                         <p><span className='bold'>{this.state.userInfo['data']['full_name']}</span>{this.state.userInfo['data']['bio']}</p>
                     </div>
                 </section>
+                <h4 className='data-recent'>Data from the last 20 posts.</h4>
                 {mostLikedPost}
                 {graphData}
-                {bestPostTime}
+
+                {/* {bestPostTime}  */}
                 
             </section>
         )
