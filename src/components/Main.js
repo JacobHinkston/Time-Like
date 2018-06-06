@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import About from './About.js'
 import Home from './Home.js'
-
-
 import connection from '../assets/connection.js'
 import loadingPic from '../assets/loading.gif'
 import instagramIco from '../assets/instagram_ico.png'
@@ -21,7 +19,6 @@ class Main extends Component{
     handleClick(event){
         window.location.href = connection.ig_connection_url
     }
-    
     componentDidMount(){
         if(this.state.loggedIn){
             const accessToken = window.location.href.split('=')[1]
@@ -66,7 +63,6 @@ class Main extends Component{
                 
             </section>
         )}
-        
         else{ return(
             <section className='section-loading'>
                 <img src={loadingPic} alt='#'/>

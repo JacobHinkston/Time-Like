@@ -92,6 +92,15 @@ header .nav-button:focus{
   width: 60px;
   height: auto;
 }
+.instagram-graph-api-platform{
+  background-color: rgb(251, 246, 219);
+  padding: 20px;
+  margin-left: 20%;
+  margin-right: 20%;
+  font-size: 15px;
+  font-weight: bold;
+}
+
 
 
 
@@ -200,8 +209,11 @@ header .nav-button:focus{
 .data-recent h4{
   text-align: center;
 }
-.data-recent h5{
+.parsed-data-warning{
   color: red;
+}
+.parsed-data-error{
+  color: gold;
 }
 .most-liked-post{
   border-bottom: 1px solid grey;
@@ -226,15 +238,14 @@ header .nav-button:focus{
   margin-left: 25%;
   margin-right: 25%;
 }
-.most-liked-post-caption h3, p{
-  display: block;
-}
+
 .recommended-post-time{
   text-align: center;
   color: rgb(102,102,102);
   margin-left: 30%;
   margin-right: 30%;
-
+  padding: 20px;
+  border: 3px solid gold;
 }
 
 
@@ -247,6 +258,12 @@ header .nav-button:focus{
 }
 canvas{
   margin-top: 29.05px;
+}
+.graph-info{
+  margin-right: 30%;
+  margin-left: 30%;
+  margin-top: 29.05px;
+  margin-bottom: 29.05px;
 }
 
 
@@ -271,15 +288,13 @@ canvas{
 .toggle-lame:hover{
   background-color:rgb(170, 42, 55); 
 }
-.lame-feedback h2, h3{
+.lame-feedback h5, h3{
   text-align: center;
 }
-.lame-feedback h2{
+#how-lame{
   border: 3px solid gold;
   padding-top: 29.05px;
   padding-bottom: 29.05px;
-
-  font-size: 30px;
 }
 
 
@@ -302,5 +317,4 @@ canvas{
   margin-left: 10px;
   width: 20px;
   height: 20px;
-
 }

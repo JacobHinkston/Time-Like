@@ -11,7 +11,6 @@ class Graph_LikesOnDay extends Component{
     }
     parseGraphData(){
         if(this.state.parsedUserData){
-            const defaultColor = 'rgba(245, 95, 46, 0.6)'
             var graphData = {
                 x: [],
                 y: [],
@@ -109,6 +108,9 @@ class Graph_LikesOnDay extends Component{
             }
             return(
                 <div className="component-graph graphdaylike">
+                    <p className='graph-info'>
+                        The graph shown below, displays thee average likes of all posts durring the week. This will allow you to estimate WHAT DAY durring the week you should post a picture to instagram in order to maximize your likes.
+                    </p>
                     <Bar
                         data={chartData}
                         options={

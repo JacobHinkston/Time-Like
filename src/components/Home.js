@@ -10,12 +10,12 @@ class Home extends Component{
         this.state={
             userInfo: props.userInfo,
             userPosts: props.userPosts,
+            userPostsLen: props.userPosts['data'].length,
             parsedUserData: undefined,
             bestPostTime: undefined,
             bestPostDay: undefined
         }
         this.parseUserData = this.parseUserData.bind(this)
-        //this.bestPostTime = this.bestPostTime.bind(this)
     }
     parseUserData(){
         var media = this.state.userInfo['data']['counts']['media']!==0
@@ -29,31 +29,26 @@ class Home extends Component{
                         postDate: new Date(post['created_time'] * 1000),
                         postUrl: post['images']['standard_resolution']['url'],
                         postLikes: post['likes']['count'],
-                        userLikedOwnPost: post['user_has_liked']
+                        postCaption: post['caption']['text'],
+                        userLikedOwnPost: post["user_has_liked"]
                     })
                 }
             }).reverse().filter(post =>{ return(post !== undefined) })
             this.setState({parsedUserData: parsedUserData})
         }
     }
-    /*
-    bestPostTime(key, value){
-        this.setState({
-            key: value
-        })
-    }
-    */
     componentDidMount(){
         this.parseUserData()
     }
-
     render(props){
-        var graphData, mostLikedPost, howLame, recentPosts
+        var graphData, mostLikedPost, howLame
+        var recentPosts, recentPostsError=undefined, recentPostsWarning=undefined, errorPosts=0
         if(this.state.parsedUserData){
             var parsedUserData = this.state.parsedUserData.map(post => {
                 return({
                     postDate: post.postDate,
-                    postLikes: post.postLikes
+                    postLikes: post.postLikes,
+                    userLikedOwnPost: post.userLikedOwnPost
                 })
             })
             graphData= (
@@ -70,7 +65,6 @@ class Home extends Component{
                                 return(post1.postDay - post2.postDay)
                             })
                         }
-                        //bestPostTime = {this.bestPostTime}
                     />
                     <Graph_LikesAtTime 
                         parsedUserData={
@@ -83,24 +77,25 @@ class Home extends Component{
                                 return(post1.postTime - post2.postTime)
                             })
                         }
-                        //bestPostTime = {this.bestPostTime}
                     />
                 </section>
             )
-            if(this.state.userInfo['data']['counts']['media'] > 20){
-                recentPosts = (
-                    <div className='data-recent'>
-                        <h4 >Data from the last {this.state.parsedUserData.length} posts.</h4>
-                        <h5>Some data cannot be analyzed; Instagram's API only allows data retreival for the last 20 posts of any user...</h5>
-                    </div>
-                )
-            }else {
-                recentPosts = (
-                    <div className='data-recent'>
-                        <h4>Data from the last {this.state.parsedUserData.length} posts.</h4>
-                    </div>
+            if(this.state.userInfo['data']['counts']['media'] > 20) recentPostsWarning=(
+                <h5 className='parsed-data-warning'>Some data cannot be analyzed; Instagram's API only allows data retreival for the last 20 posts of any user...</h5>
+            )
+            if(this.state.userPostsLen > this.state.parsedUserData.length){
+                errorPosts = (this.state.userPostsLen - this.state.parsedUserData.length)
+                recentPostsError=(
+                    <h5 className='parsed-data-error'> {errorPosts} of your posts was not able to be retreived from instagram.</h5>
                 )
             }
+            recentPosts = (
+                <div className='data-recent'>
+                    <h4>Data from the last {this.state.parsedUserData.length} posts.</h4>
+                    {recentPostsWarning?recentPostsWarning:<div></div>}
+                    {recentPostsError?recentPostsError:<div></div>}
+                </div>
+            )
             mostLikedPost = (
                 <MostLikedPost 
                     parsedUserData={this.state.parsedUserData}
@@ -141,7 +136,6 @@ class Home extends Component{
                 {mostLikedPost}
                 {graphData}
                 {howLame}
-                {/* {bestPostTime}  */}
                 
             </section>
         )

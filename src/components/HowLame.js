@@ -17,10 +17,9 @@ class HowLame extends Component{
     findHowLame(){
         var numPosts = this.state.userPostsLength
         var numLikedOwnPosts = this.state.parsedUserData.filter(post => {
-            return(post.userHasLikedOwnPost)
+            return(post.userLikedOwnPost)
         }).length
-        var feedBack;
-        if(numLikedOwnPosts==0) 
+        if(numLikedOwnPosts===0) 
         return([
             'You have liked 0 of your own posts;', 
             'You are 0% lame! 🙌'
@@ -30,7 +29,7 @@ class HowLame extends Component{
             const percentLame=(numLikedOwnPosts/numPosts)*10
             return([
                 'You have liked ' + numLikedOwnPosts + ' of your own posts',
-                'You are at the LEAST, ' + percentLame + "% lame 😂"
+                'You are at the LEAST, ' + percentLame.toFixed(3) + "% lame 😂"
             ])
         }
     }
@@ -41,8 +40,8 @@ class HowLame extends Component{
         if(this.state.toggled){
             lameInfo = (
                 <div className ='lame-feedback'>
-                    <h3>{lameFeedback[0]}</h3>
-                    <h2 className='how-lame'>{lameFeedback[1]}</h2>
+                    <h5>{lameFeedback[0]}</h5>
+                    <h3 id='how-lame'>{lameFeedback[1]}</h3>
                 </div> 
             )
         }

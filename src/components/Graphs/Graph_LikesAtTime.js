@@ -104,6 +104,9 @@ class Graph_LikesAtTime extends Component{
             }
             return(
                 <div className="component-graph graphtimeodlike">
+                    <p className='graph-info'>
+                        The graph shown below, displays thee average likes of all posts in a 24 hour range. This will allow you to estimate WHAT TIME you should post a picture to instagram in order to maximize your likes.
+                    </p>
                     <Bar
                         data={chartData}
                         options={

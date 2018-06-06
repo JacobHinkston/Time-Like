@@ -30,6 +30,23 @@ const About = () => {
                     First, sign in above by hitting the 'Login Button', then it will do the rest! Sign into instagram through instagrams secure login page. Once authenticated, it will redirect you to the app and it will being doing everything for you :)
                 </p>
                 <h3>
+                    Message from instagram:
+                </h3>
+                <div className="instagram-graph-api-platform">
+                    <p>To continuously improve Instagram users' privacy and security, we are accelerating the deprecation of Instagram API Platform, making the following changes effective immediately. We understand that this may affect your business or services, and we appreciate your support in keeping our platform secure.
+                    <br/>
+                    <br/>
+                    These <a href="https://www.instagram.com/developer/changelog/">capabilities</a> will be disabled immediately (previously set for July 31, 2018 or December 11, 2018 deprecation).
+                    The following will be deprecated according to the timeline we <a href="https://developers.facebook.com/blog/post/2018/01/30/instagram-graph-api-updates/">shared previously</a>:
+                </p>
+                <ul>
+                    <li>Public Content - all remaining capabilities to read public media on a user's behalf on December 11, 2018</li>
+                    <li>Basic - to read a user’s own profile info and media in early 2020</li>
+                </ul>
+                For your reference, information on the <a href="https://developers.facebook.com/products/instagram/"> new Instagram Graph API </a>.
+                    <p></p>
+                </div>
+                <h3>
                     Contact
                 </h3>
                 <p>
