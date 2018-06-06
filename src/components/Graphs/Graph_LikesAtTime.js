@@ -59,8 +59,8 @@ class Graph_LikesAtTime extends Component{
     }
     calculateGraphColors(yGraphData, xGraphData){
         const lowColor = 'rgba(255,0,0, 0.6)'
-        const mediumColor = 'rgba(255,255,0,0.6)'
-        const medhighColor = 'rgba(255, 128, 0, 0.6)'
+        const mediumColor = 'rgba(255, 128, 0, 0.6)'
+        const medhighColor = 'rgba(255,255,0,0.6)'
         const highColor = 'rgba(0,255,0, 0.6)'
         
         var mostLikedPost = yGraphData[0], mostLikedPostTime = xGraphData[0]

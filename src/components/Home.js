@@ -109,8 +109,9 @@ class Home extends Component{
                 />
             )
         }else{
-            mostLikedPost = (<h3 className='error'>You dont have a most liked post!</h3>)
-            graphData = (<h3 className='error'>No data to analyze, </h3>)
+            mostLikedPost = (<div></div>)
+            graphData = (<h3 className='error'>You have 0 posts; nothing to analyze</h3>)
+
 
         }
         return( 

@@ -21,7 +21,7 @@ const About = () => {
                 </ul>
                 <p>
                     This is solved by analyzing data from instagram to find at what time of the day, to post, based on how many likes you recieved at any said time.
-                    Unfortunately, without advanced buisness tools, I cannot account for how many followers a person had at any time durring their instagram account's growth,so there is a slight skew. 
+                    Unfortunately, without advanced buisness tools, I cannot account for how many followers a person had at any time durring their instagram account's growth,so there is a slight skew; Instagrams api only allows peeople without buisness tools to pull the 20 most recent post - any data analyzed is recent.
                 </p>
                 <h3>
                     How do you use Time-Like?

@@ -46,7 +46,7 @@ class Graph_LikesOverTime extends Component{
                             {
                             title:{
                                 display:true,
-                                text:'- Likes over last 20 posts -',
+                                text:'- Likes over last '+ graphData.x.length + ' posts -',
                                 fontSize:25
                             },
                             legend:{
