@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Line} from 'react-chartjs-2'
-class Graph_LikesOverTime extends Component{
+class GraphLikesOverTime extends Component{
     constructor(props){
         super(props)
         this.state={ parsedUserData: props.parsedUserData }
@@ -61,4 +61,4 @@ class Graph_LikesOverTime extends Component{
         }
     }
 }
-export default Graph_LikesOverTime
+export default GraphLikesOverTime

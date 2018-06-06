@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import MostLikedPost from './MostLikedPost.js'
-import Graph_LikesOverTime from './Graphs/Graph_LikesOverTime.js'
-import Graph_LikesOnDay from './Graphs/Graph_LikesOnDay.js'
-import Graph_LikesAtTime from './Graphs/Graph_LikesAtTime.js'
+import GraphLikesOverTime from './Graphs/GraphLikesOverTime.js'
+import GraphLikesOnDay from './Graphs/GraphLikesOnDay.js'
+import GraphLikesAtTime from './Graphs/GraphLikesAtTime.js'
 import HowLame from './HowLame.js'
 class Home extends Component{
     constructor(props){
@@ -20,22 +20,26 @@ class Home extends Component{
     parseUserData(){
         var media = this.state.userInfo['data']['counts']['media']!==0
         if(media){
-            var parsedUserData = this.state.userPosts['data'].map(post => {
-                if (post['type'] === 'image' || post['type'] === 'carousel') {
-                    var postCaptionText = post['caption']
-                    if(postCaptionText == null) postCaptionText="/NO CAPTION/"
-                    else postCaptionText = post['caption']['text']
-                    return ({
-                        postDate: new Date(post['created_time'] * 1000),
-                        postUrl: post['images']['standard_resolution']['url'],
-                        postLikes: post['likes']['count'],
-                        postCaption: post['caption']['text'],
-                        userLikedOwnPost: post["user_has_liked"]
-                    })
-                }
-            }).reverse().filter(post =>{ return(post !== undefined) })
-            this.setState({parsedUserData: parsedUserData})
+            var parsedUserData = this.state.userPosts['data'].filter(post => {
+                return(
+                    post !== undefined 
+                    &&
+                    (post['type'] === 'image' || post['type'] === 'carousel')
+                )
+            }).map(post => {
+                var postCaptionText = post['caption']
+                if(postCaptionText == null) postCaptionText="/NO CAPTION/"
+                else postCaptionText = post['caption']['text']
+                return ({
+                    postDate: new Date(post['created_time'] * 1000),
+                    postUrl: post['images']['standard_resolution']['url'],
+                    postLikes: post['likes']['count'],
+                    postCaption: post['caption']['text'],
+                    userLikedOwnPost: post["user_has_liked"]
+                })
+            }).reverse()
         }
+        this.setState({parsedUserData: parsedUserData})
     }
     componentDidMount(){
         this.parseUserData()
@@ -53,8 +57,8 @@ class Home extends Component{
             })
             graphData= (
                 <section className='graph-data'>
-                    <Graph_LikesOverTime parsedUserData={parsedUserData}/>
-                    <Graph_LikesOnDay 
+                    <GraphLikesOverTime parsedUserData={parsedUserData}/>
+                    <GraphLikesOnDay 
                         parsedUserData={
                             parsedUserData.map(post => {
                                 return({
@@ -66,7 +70,7 @@ class Home extends Component{
                             })
                         }
                     />
-                    <Graph_LikesAtTime 
+                    <GraphLikesAtTime 
                         parsedUserData={
                             parsedUserData.map(post => {
                                 return({
@@ -144,3 +148,6 @@ class Home extends Component{
 
 }
 export default Home
+
+
+

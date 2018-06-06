@@ -3,7 +3,6 @@ import About from './About.js'
 import Home from './Home.js'
 import connection from '../assets/connection.js'
 import loadingPic from '../assets/loading.gif'
-import instagramIco from '../assets/instagram_ico.png'
 class Main extends Component{
     constructor(props){
         super(props)
@@ -40,6 +39,25 @@ class Main extends Component{
         }
     }
     render(props){
+        var sandBoxMode = undefined;
+        if(connection.ig_sandboxMode){
+            sandBoxMode = (
+                <section className='sand-box-mode'>
+                    <h4> 
+                        <span className='error'> READ - This app is still in sandbox mode, instagram has still not granted 100% access to their api.</span>
+                        <br/>
+                    </h4>
+                    <p> If you want to use this app, follow the instructions: </p>
+                    <ul>
+                        <li><a href='mailto:jacobhinkston@gmail.com'>Contact Jacob</a> and send your instausername</li>
+                        <li>Visit <a href='https://www.instagram.com/developer/clients/sandbox_invites/'>Instagram Sandbox Invites</a></li>
+                        <li>Login to your instagram account</li>
+                        <li>Accept 'timelike' invitation</li>
+                        <li>Come back to the website and login!</li>
+                    </ul>
+                </section>
+            )
+        }
         if(this.props.display === "Home" && this.state.dataIsLoaded){
             return(
             <Home
@@ -52,6 +70,7 @@ class Main extends Component{
         )}
         else if(!this.state.loggedIn){ return(
             <section className='section-not-logged-in'>
+                {sandBoxMode}
                 <h1 className='intro-timelike'> TimeLike! The free instagram account analyzer! </h1>
                 <h3>You dont apear to be logged in to instagram on this device.</h3>
                 <div>

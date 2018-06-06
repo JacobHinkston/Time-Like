@@ -75,6 +75,7 @@ header .nav-button:focus{
 .component-about h1{
   font-size: 35px;
   text-align: center;
+  
 }
 .main-information{
   margin-left: 15%;
@@ -95,6 +96,12 @@ header .nav-button:focus{
 .contact a img{
   width: 60px;
   height: auto;
+}
+.about-info{
+  margin-top:60px;
+}
+.about-info h3{
+  margin: 0px;
 }
 .instagram-graph-api-platform{
   background-color: rgb(251, 246, 219);
@@ -153,6 +160,19 @@ header .nav-button:focus{
 .intro-timelike{
   text-align: center;
   margin-bottom: 50px;
+}
+.sand-box-mode{
+  text-align: center;
+  margin-left: 40%;
+  margin-right: 40%;
+  margin-bottom: 50px;
+  padding: 10px;
+  border: 1px solid grey;
+  background-color: rgb(240,240,240);
+  color: rgb(102,102,102);
+}
+.data-recent ul li{
+  text-align: left;
 }
 
 

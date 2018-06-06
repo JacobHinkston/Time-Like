@@ -4,7 +4,7 @@ const Footer = () => {
     return(
         <footer className='component-footer'>
             <p> ©2018 TimeLike </p>
-            <img src={footerImg}/> 
+            <img src={footerImg} alt='#'/> 
         </footer>
     )
 }

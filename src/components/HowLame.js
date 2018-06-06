@@ -22,14 +22,14 @@ class HowLame extends Component{
         if(numLikedOwnPosts===0) 
         return([
             'You have liked 0 of your own posts;', 
-            'You are 0% lame! 🙌'
+            'You are 0% lame!'
         ])
         else if(numPosts===0) return undefined
         else{
             const percentLame=(numLikedOwnPosts/numPosts)*10
             return([
                 'You have liked ' + numLikedOwnPosts + ' of your own posts',
-                'You are at the LEAST, ' + percentLame.toFixed(3) + "% lame 😂"
+                'You are at the LEAST, ' + percentLame.toFixed(3) + "% lame"
             ])
         }
     }
@@ -51,7 +51,7 @@ class HowLame extends Component{
                     <button
                         className='toggle-lame'
                         onClick={this.toggleHowLame}
-                    >Find out how LAME you are 😂</button>
+                    >Find out how LAME you are</button>
                     {lameInfo}
                 </section>
             </section>
