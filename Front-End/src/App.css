@@ -1,0 +1,343 @@
+.App{
+  font-weight: lighter;
+}
+.bold{
+  font-weight: bold;
+}
+.error{
+  text-align: center;
+  color: red;
+
+}
+
+
+/* HEEADER */
+header{
+  display: flex;
+  background-color: rgb(60,55,55);
+  color: white;
+}
+header section{
+  display: flex;
+  flex:3;
+  align-items: center;
+  margin-left: 5%;
+}
+header section h1{
+  font-family: Brush Script MT, Brush Script Std,cursive;
+  font-size: 50px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+} 
+header section img{
+  width: 65px;
+  height: auto;
+  padding-left: 10px;
+}
+header nav{
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  margin-left: 7%;
+  margin-right: 7%;
+}
+header nav .nav-button{
+  background-color: rgb(60,55,55);
+  border: 0px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  text-decoration: none;
+  color: white;
+  height: 40px;
+  width: 100%;
+  text-align: center;
+
+}
+header .nav-button:hover{
+  border-bottom: 1px solid white;
+}
+header .nav-button:focus{
+  outline: 0px;
+}
+
+
+
+
+/*COMPONENT ABOUT*/
+.component-about{
+  margin-left:5%;
+  margin-right:5%;
+}
+.component-about h1{
+  font-size: 35px;
+  text-align: center;
+  
+}
+.main-information{
+  margin-left: 15%;
+  margin-right: 15%;
+}
+.component-about .contact{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top:29.05px;
+  margin-right: 40%;
+  margin-left: 40%;
+  border-radius: 5px;
+}
+.component-about .contact a{
+  margin: 10px;
+}
+.contact a img{
+  width: 60px;
+  height: auto;
+}
+.about-info{
+  margin-top:60px;
+}
+.about-info h3{
+  margin: 0px;
+}
+.instagram-graph-api-platform{
+  background-color: rgb(251, 246, 219);
+  padding: 20px;
+  margin-left: 20%;
+  margin-right: 20%;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+
+/*COMPONENT MAIN*/
+.section-not-logged-in, .section-loading{
+  margin-left:5%;
+  margin-right:5%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+.section-loading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.section-not-logged-in h3{
+  text-align: center;
+}
+.section-not-logged-in div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.section-not-logged-in div button{
+  background-color: rgb(219, 42, 55);
+  color: white;
+  font-size: 25px;
+  border: 0px;
+  padding: 35px;
+  padding-left: 60px;
+  padding-right: 60px;
+  border-radius: 600px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.section-not-logged-in button:hover{
+  background-color:  rgb(170, 42, 55);
+}
+.section-not-logged-in button img{
+  width: 80px;
+  height: 80px;
+}
+.section-not-logged-in p{
+  margin-top: 18.716px;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+.intro-timelike{
+  text-align: center;
+  margin-bottom: 50px;
+}
+.sand-box-mode{
+  text-align: center;
+  margin-left: 40%;
+  margin-right: 40%;
+  margin-bottom: 50px;
+  padding: 10px;
+  border: 1px solid grey;
+  background-color: rgb(240,240,240);
+  color: rgb(102,102,102);
+}
+.data-recent ul li{
+  text-align: left;
+}
+
+
+
+
+
+/*COMPONENT HOME*/
+.component-home{
+  margin-left: 5%;
+  margin-right: 5%;
+}
+.component-home h1 {
+  font-size: 35px;
+  text-align: center;
+}
+.account-info{
+  display: flex;
+  padding-bottom: 29.05px;
+  border-bottom: 1px solid grey;
+}
+.account-img{
+  flex: 1;
+  margin-left: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.account-img img{
+  border-radius: 50%;
+}
+.account-headers{
+  flex: 1;
+  margin-right: 25%;
+}
+.account-headers h2, p{
+  margin: 0;
+}
+.followers{
+  display: flex;
+}
+.followers p{
+  display: inline-block;
+  padding-right: 20px;
+  margin-bottom: 12px;
+  margin-top: 12px;
+}
+.data-recent{
+  text-align: center;
+  margin-top: 29.05px;
+  margin-left: 35%;
+  margin-right: 35%;
+  padding: 10px;
+  border: 1px solid grey;
+  background-color: rgb(240,240,240);
+  color: rgb(102,102,102);
+}
+.data-recent h4{
+  text-align: center;
+}
+.parsed-data-warning{
+  color: red;
+}
+.parsed-data-error{
+  color: gold;
+}
+.most-liked-post{
+  border-bottom: 1px solid grey;
+  padding-bottom: 29.05px;
+}
+.most-liked-post h2{
+  margin-top: 29.05px;
+  margin-bottom: 29.05px;
+  text-align: center;
+  color: rgb(102,102,102);
+}
+.most-liked-picture{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.most-liked-post section img{
+  width: 50%;
+  height: 50%;
+}
+.most-liked-post-caption{
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+.recommended-post-time{
+  text-align: center;
+  color: rgb(102,102,102);
+  margin-left: 30%;
+  margin-right: 30%;
+  padding: 20px;
+  border: 3px solid gold;
+}
+
+
+
+
+
+/*GRAPH DATA*/
+.component-graph{
+  border-bottom: 1px solid grey;
+}
+canvas{
+  margin-top: 29.05px;
+}
+.graph-info{
+  margin-right: 30%;
+  margin-left: 30%;
+  margin-top: 29.05px;
+  margin-bottom: 29.05px;
+}
+
+
+
+
+/*COMPONENT HOW LAME*/
+.component-howlame{
+  margin-top: 29.05px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+.toggle-lame{
+  background-color: rgb(219, 42, 55);
+  color: white;
+  font-size: 25px;
+  border: 0px;
+  border-radius: 500px;
+  padding: 30px;
+}
+.toggle-lame:hover{
+  background-color:rgb(170, 42, 55); 
+}
+.lame-feedback h5, h3{
+  text-align: center;
+}
+#how-lame{
+  border: 3px solid gold;
+  padding-top: 29.05px;
+  padding-bottom: 29.05px;
+}
+
+
+
+
+
+/*FOOTER*/
+.component-footer{
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-top: 29.05px;
+  background-color:  rgb(65,60,60);
+}
+.component-footer p{
+  align-items: center;
+  color: white;
+}
+.component-footer img{
+  margin-left: 10px;
+  width: 20px;
+  height: 20px;
+}
