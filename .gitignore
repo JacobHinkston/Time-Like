@@ -9,6 +9,7 @@ Back-End/node_modules
 
 # production
 Front-End/build
+Front-End/src/instagram.config.js
 
 # misc
 .DS_Store
