@@ -1,0 +1,33 @@
+.about-component{
+
+}
+.about-component article {
+    width: 55%;
+    max-width: 2000px;
+}
+.about-component h1{
+    font-size: 40px;
+    
+}
+.about-section{
+    margin-bottom: 30px;
+}
+.about-section h2{
+    border-left: 3px solid rgb(220, 49, 60);
+    padding-left: 5px;
+}
+@media only screen and (max-width: 800px) {
+    .about-component{
+        margin: 0px;
+    }
+    .about-component article {
+        width: 100%;
+    }
+    .about-section{
+        padding: 10px;
+    }
+    .about-section h2{
+        font-size: 18px;
+    }
+}
+  

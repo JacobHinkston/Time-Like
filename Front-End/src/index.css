@@ -1,11 +1,85 @@
 .root {
-  margin: 0;
   font-family: Fredoka one;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
+  
+}
+.app-component {
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.row{ 
+  display: flex;
+  flex-direction: row;
+}
+/* @media only screen and (max-width: 800px) {
+  .row{
+      flex-direction: column;
+  }
+} */
+.col{
+  display: flex;
+  flex-direction: column;
+}
+.wrap{ flex-wrap: wrap; }
+.space{ justify-content: space-between; }
+.center-x{ justify-content: center; }
+.center-y{ align-items: center; }
+.right{ flex-direction: row-reverse; }
+.left{ justify-content: flex-end; }
+.col-1{ flex: 1; }
+.col-2{ flex: 2; }
+.col-3{ flex: 3; }
+.col-4{ flex: 4; }
+.col-5{ flex: 5; }
+.head-1{
+  padding-left: 10px;
+  border-left: 3px solid rgba(0,0,0,.8);
+}
+.bgc-aim-2{
+  background-color: rgba(70,246,211, .1);
+}
+.hidden{
+  display: none;
+}
+.component-form {
+  margin-top: 50px;
+}
+.component-form h3{
+  text-align: center;
+  border-bottom: 1px solid gray;
+}
+.component-form form{
+  width: 450px;
+}
+.submit-btn{
+  width: 100%;
+}
+.message{
+  width: 450px;
+}
+.alternate-white{
+    background-color: rgb(245, 245, 245);
+}
+.alternate-gray{
+    background-color: white;
+}
+.logging-in {
+    margin-top: 50px;
+}
+.logging-in img{
+    width: 200px;
+}
+@media only screen and (max-width: 800px) {
+  .app-component{
+    margin-left: 0px;
+    margin-right: 0px;
+  }
 }

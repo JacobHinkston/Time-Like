@@ -1,0 +1,35 @@
+.header-component{
+    padding: 5px;
+}
+.header-component aside{
+    background-color: lightgray
+}
+.header-component div h1{
+    margin: 0px 0px 0px 10px;
+    font-size: 40px;
+}
+.header-component div a img{
+    width: 80px;
+}
+.header-component nav a{
+    text-align: center;
+    font-size: 15px;
+}
+.header-component nav a i{
+    width: 50px;
+}
+.user-btn{
+    background-color: transparent;
+    border: 0px;
+}
+.user-btn div i{
+    display: none;
+}
+.user-btn img{
+    max-width: 40px;
+    border-radius: 50%;
+}
+.header-component nav :nth-child(2){
+
+}
+
