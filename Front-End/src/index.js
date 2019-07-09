@@ -5,12 +5,14 @@ import {
     Route,
     Switch
 } from 'react-router-dom';
-import './index.css';
+import './index.sass';
 import * as serviceWorker from './serviceWorker';
 
 import endpoints from './instagram.config';
+
 import Header from './components/Header/Header';
 import About from './components/About/About';
+import Analytics from './components/Analytics/Analytics';
 import Footer from './components/Footer/Footer';
 
 class App extends Component{
@@ -86,7 +88,8 @@ class App extends Component{
                     />
                     <Switch>
                         <main>
-                            {/* <Route
+                            {
+                                /* <Route
                                 exact
                                 path="/"
                                 component={(props) => 
@@ -102,18 +105,18 @@ class App extends Component{
                                         loggedIn={this.state.loggedIn}
                                     />
                                 }
-                            />
+                            /> */}
                             <Route
-                                path="/login"
+                                path={"/analytics"+this.state.token}
                                 component={(props) =>
-                                    <Login {...props}
-                                           updateSignin={this.updateSignin}
+                                    <Analytics {...props}
+                                           
                                     />
                                 }
 
-                            /> */}
+                            />
                             <Route
-                                path="/about"
+                                path={"/about"+this.state.token}
                                 component={ (props) =>  
                                     <About {...props}/>
                                 }

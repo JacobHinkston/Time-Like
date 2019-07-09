@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './About.css'
+import './About.sass'
 export default class About extends Component {
     constructor(props){
         super(props);

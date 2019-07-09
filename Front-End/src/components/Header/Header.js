@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import endpoints from '../../instagram.config';
-import './Header.css';
+import './Header.sass';
 import timeLikeLogo from '../../assets/timelike.png';
 import userImage from '../../assets/user.png';
 import { Link } from 'react-router-dom';
@@ -34,9 +34,9 @@ export default class Header extends Component {
                 <nav className="col-2 row center-y">
                     <Link
                         className="col-1"
-                        to="/"
+                        to="/analytics"
                     >
-                        Home
+                        Analytics
                     </Link>
                     <Link
                         className="col-1"
@@ -63,7 +63,7 @@ export default class Header extends Component {
                                     />
                                 </div> 
                             ) : (
-                                <div 
+                                <div
                                     className = "loading col-1 user-btn row center-x"
                                 >
                                     <img
