@@ -107,8 +107,8 @@ class App extends Component{
                                 }
                             /> */}
                             <Route
-                                path={"/analytics"+this.state.token}
-                                component={(props) =>
+                                path={"/analytics"}
+                                component={ (props) =>
                                     <Analytics {...props}
                                            
                                     />
@@ -116,7 +116,7 @@ class App extends Component{
 
                             />
                             <Route
-                                path={"/about"+this.state.token}
+                                path={"/about"}
                                 component={ (props) =>  
                                     <About {...props}/>
                                 }

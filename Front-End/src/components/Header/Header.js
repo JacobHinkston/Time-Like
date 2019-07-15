@@ -1,34 +1,30 @@
 import React, { Component } from 'react';
 import endpoints from '../../instagram.config';
 import './Header.sass';
-import timeLikeLogo from '../../assets/timelike.png';
-import userImage from '../../assets/user.png';
 import { Link } from 'react-router-dom';
-import { Button, Dropdown } from 'semantic-ui-react'
+import { Button, Dropdown } from 'semantic-ui-react';
+import SideNavigator from './SideNavigator/SideNavigator';
 export default class Header extends Component {
     constructor(props){
         super(props);
         this.state = {
-            isLoggedIn: true,
-            loading: props.loading,
-            userInfo: undefined
+            // isLoggedIn: props.isLoggedIn,
+            // loading: props.loading,
+            // userInfo: props.userInfo
         };
     }
     componentDidMount(){
         
     }
     render(props) {
-        const options = [
-            { key: 'edit', icon: 'back', text: 'Log Out', value: 'edit' },
-            { key: 'delete', icon: 'instagram', text: 'Instagram', value: 'delete' },
-          ]
         return (
             <header className="header-component row center-y">
                 <div className="col-5 row center-y">
-                    <a href="/">
-                        <img src={timeLikeLogo}/>
-                    </a>
-                    
+                    <Link 
+                        to="/"
+                    >
+                        <img src={'./assets/timelike.png'}/>
+                    </Link>
                     <h1>TimeLike</h1>
                 </div>
                 <nav className="col-2 row center-y">
@@ -48,15 +44,43 @@ export default class Header extends Component {
                         this.props.isLoggedIn ? (
                             this.props.userInfo ? (
                                 <div 
-                                    className="col-1 user-btn row center-x"
+                                    className = "col-1 user-btn row center-x"
                                 >
                                     <Dropdown
-                                        className=''
                                         floating
-                                        options={options}
-                                        trigger={
+                                        options = {
+                                            [
+                                                { 
+                                                    key: 'edit',
+                                                    icon: 'back',
+                                                    text: 'Log Out',
+                                                    value: 'edit' 
+                                                },{ 
+                                                    key: 'delete', 
+                                                    icon: 'instagram',
+                                                    text: 'Instagram',
+                                                    value: 'delete' 
+                                                }
+                                            ]
+                                        }
+                                        onChange = {
+                                            (event) => {
+                                                let action = event.target.innerText;
+                                                if(action === 'Log Out') {
+                                                    alert('You will not be redirected to instagram, where you can logout manualy.');
+                                                    window.location = endpoints.instagram;
+                                                } else if(action === 'Instagram') {
+                                                    window.location = endpoints.instagram;
+                                                }
+                                            }
+                                        }
+                                        trigger = {
                                             <img
-                                                src={ this.props.userInfo.profilePicture }
+                                                src = { 
+                                                    this.props.userInfo.profilePicture ? 
+                                                    this.props.userInfo.profilePicture : 
+                                                    "./assets/user.png"
+                                                }
                                                 alt="#"
                                             />
                                         }
@@ -67,7 +91,7 @@ export default class Header extends Component {
                                     className = "loading col-1 user-btn row center-x"
                                 >
                                     <img
-                                        src={userImage}
+                                        src="./assets/user.png"
                                         alt="#"
                                     />
                                 </div>
@@ -82,6 +106,11 @@ export default class Header extends Component {
                         )
                     }
                 </nav>
+                <SideNavigator
+                    isLoggedIn={this.props.isLoggedIn}
+                    loading={this.props.loading}
+                    userInfo={this.props.userInfo}
+                />
             </header>
         )
     }

@@ -9,7 +9,6 @@ export default class About extends Component {
         return (
             <article className="about-component">
                 <section className='main-information'>
-                    <h1>About TimeLike</h1>
                     <section className='about-info'>
                         <h3>
                             What is 'Time-Like'?:

@@ -16,11 +16,8 @@ export default class Graphs extends Component {
     }
     render() {
         return (
-            <div>
-                Graphs here
-                <GraphLikesAtTime/>
-                <GraphLikesOnDay/>
-                <GraphLikesOverTime/>
+            <div className="graphs-component">
+                
             </div>
         )
     }
