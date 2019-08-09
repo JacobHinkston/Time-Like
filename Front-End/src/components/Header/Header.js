@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import endpoints from '../../instagram.config';
 import './Header.sass';
 import { Link } from 'react-router-dom';
-import { Button, Dropdown } from 'semantic-ui-react';
+import { Dropdown } from 'semantic-ui-react';
 import SideNavigator from './SideNavigator/SideNavigator';
 export default class Header extends Component {
     constructor(props){
@@ -28,6 +28,9 @@ export default class Header extends Component {
                     <h1>TimeLike</h1>
                 </div>
                 <nav className="col-2 row center-y">
+                    <div>
+                        
+                    </div>
                     <Link
                         className="col-1"
                         to="/analytics"
@@ -107,9 +110,9 @@ export default class Header extends Component {
                     }
                 </nav>
                 <SideNavigator
-                    isLoggedIn={this.props.isLoggedIn}
-                    loading={this.props.loading}
-                    userInfo={this.props.userInfo}
+                    isLoggedIn =  { this.props.isLoggedIn }
+                    loading = { this.props.loading } 
+                    userInfo = { this.props.userInfo }
                 />
             </header>
         )
