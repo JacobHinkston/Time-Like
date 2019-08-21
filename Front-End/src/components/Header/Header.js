@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import endpoints from '../../instagram.config';
-import './Header.sass';
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
+import endpoints from '../../instagram.config';
+import './Header.sass';
+
 import SideNavigator from './SideNavigator/SideNavigator';
+
 export default class Header extends Component {
+    
     constructor(props){
         super(props);
         this.state = {
@@ -13,6 +16,7 @@ export default class Header extends Component {
             // userInfo: props.userInfo
         };
     }
+
     componentDidMount(){
         
     }
@@ -23,7 +27,7 @@ export default class Header extends Component {
                     <Link 
                         to="/"
                     >
-                        <img src={'./assets/timelike.png'}/>
+                        <img src={'/assets/timelike.png'}/>
                     </Link>
                     <h1>TimeLike</h1>
                 </div>
@@ -82,20 +86,25 @@ export default class Header extends Component {
                                                 src = { 
                                                     this.props.userInfo.profilePicture ? 
                                                     this.props.userInfo.profilePicture : 
-                                                    "./assets/user.png"
+                                                    "/assets/user.png"
                                                 }
-                                                alt="#"
+                                                alt="/assets/spinner.gif"
                                             />
                                         }
                                     />
                                 </div> 
                             ) : (
                                 <div
-                                    className = "loading col-1 user-btn row center-x"
+                                    className = "col-1 user-btn row center-x"
                                 >
                                     <img
-                                        src="./assets/user.png"
-                                        alt="#"
+                                        src="./assets/spinner.gif"
+                                        style = {
+                                            {
+                                                width: "40px",
+                                                height: "40px"
+                                            }
+                                        }
                                     />
                                 </div>
                             )

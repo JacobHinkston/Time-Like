@@ -3,15 +3,136 @@ import { Bar } from 'react-chartjs-2'
 export default class GraphLikesAtTime extends Component {
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {
+            userPosts: props.userPosts
+        };
     }
+    parseGraphData = () => {
+        if(this.state.userPosts){
+            var graphData = {
+                x: [],
+                y: [],
+                graphColors:[],
+                recommendedPostTime: undefined
+            }
+            this.state.userPosts.forEach(post => {
+                const militaryPostTime = post.postTime,
+                    timeParse = (militaryPostTime + 12) % 12
+                let timeOfPost;
+                if (timeParse === militaryPostTime){
+                    timeOfPost = (timeParse + "am")
+                } else if (timeParse === 0){
+                    timeOfPost = (12 + "pm")
+                } else{
+                    timeOfPost = (timeParse + "pm")
+                }
 
+                graphData.x.push(timeOfPost)
+                graphData.y.push(post.postLikes)
+            })
+            graphData = this.calculateAverageLikes(graphData)
+            let calculatedGraphColors = this.calculateGraphColors(graphData.y, graphData.x)
+            graphData.graphColors = calculatedGraphColors.graphColors
+            graphData.recommendedPostTime = calculatedGraphColors.mostLikedPostTime.split(' ')[0]
+            return graphData
+        } else {
+            return undefined
+        } 
+    }
+    calculateAverageLikes = (graphData) => {
+        for(let i=0; i<graphData.x.length-1; i++){
+            let postLikes = graphData.y[i]
+            let countOfPosts = 1
+            if(graphData.x[i] === graphData.x[i+1]){ 
+                for(
+                    let j=i+1;
+                    j<graphData.x.length
+                        &&
+                    graphData.x[i]===graphData.x[j];
+                    j++,
+                    countOfPosts++
+                ){
+                    postLikes += graphData.y[j]
+                }
+                graphData.x[i] += (' - (' + countOfPosts + ' posts)')
+                graphData.y[i] = postLikes/countOfPosts
+                graphData.x.splice(i+1, countOfPosts-1)
+                graphData.y.splice(i+1, countOfPosts-1)
+            }
+        }
+        return graphData
+    }
+    calculateGraphColors = (yGraphData, xGraphData) => {
+        const lowColor = 'rgba(255,0,0, 0.6)',
+            mediumColor = 'rgba(255, 128, 0, 0.6)',
+            medhighColor = 'rgba(255,255,0,0.6)',
+            highColor = 'rgba(0,255,0, 0.6)'
+        
+        let mostLikedPost = yGraphData[0],
+            mostLikedPostTime = xGraphData[0],
+            leastLikedPost = yGraphData[0]
+
+        for(let i=0; i<yGraphData.length; i++){
+            if(yGraphData[i] > mostLikedPost){
+                mostLikedPost = yGraphData[i]
+                mostLikedPostTime = xGraphData[i]
+            } else if(yGraphData[i] < leastLikedPost) {
+                leastLikedPost = yGraphData[i]
+            }
+        }
+
+        const 
+            threshHold = mostLikedPost-leastLikedPost,
+            lowThreshhold = leastLikedPost + threshHold*(1/3),
+            medThreshhold = leastLikedPost + threshHold*(2/3),
+            graphColors = yGraphData.map(data => {
+                if(data <= lowThreshhold) return lowColor
+                else if(data <= medThreshhold) return mediumColor
+                else if(data > medThreshhold && data < mostLikedPost) return medhighColor
+                else return highColor
+            })
+        return {
+            graphColors: graphColors,
+            mostLikedPostTime: mostLikedPostTime
+        }
+    }
     render() {
-        return (
-            <section className="graph-likes-at-time-component">
-                
-            </section>
-        )
+        const graphData = this.parseGraphData()
+        if(graphData){
+            //this.props.bestPostTime('bestPostTime', graphData.recommendedPostTime)
+            const xData = graphData.x
+            const yData = graphData.y
+            const colors = graphData.graphColors
+            const chartData = {
+                labels: xData,
+                datasets: [{
+                    label: 'Average Likes',
+                    data: yData,
+                    backgroundColor: colors
+                }]
+            }
+            return(
+                <section className="graph-likes-at-time-component graph row center-x center-y">
+                    <Bar
+                        data={chartData}
+                        options={
+                            {
+                                title:{
+                                    display:true,
+                                    //text:'- Average likes of a post, posted at any time of day -',
+                                    fontSize:25
+                                },
+                                legend:{
+                                    display: false,
+                                    position:'top'
+                                }
+                            }
+                        }
+                    />
+                    {/* <h2 className='recommended-post-time'>You should post pictures around {graphData.recommendedPostTime}</h2> */}
+                </section>
+            )
+        }else return(<div></div>)
     }
 }
 /*

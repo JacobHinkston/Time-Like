@@ -1,21 +1,142 @@
 import React, { Component } from 'react'
-
+import {Bar} from 'react-chartjs-2'
 export default class GraphLikesOnDay extends Component {
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {
+            userPosts: props.userPosts
+        };
+    }
+    parseGraphData = () => {
+        if(this.state.userPosts){
+            var graphData = {
+                x: [],
+                y: [],
+                colors: [],
+                recommendedPostDay: undefined
+            }
+            const daysOfWeek=[
+                'Sunday',
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday'
+            ]
+            this.state.userPosts.forEach(post => {
+                graphData.x.push(daysOfWeek[post.postDay])
+                graphData.y.push(post.postLikes)
+            })
+            graphData = this.calculateAverageLikes(graphData)
+            var calculatedGraphColors = this.calculateGraphColors(graphData.y, graphData.x)
+            graphData.graphColors = calculatedGraphColors.graphColors
+            graphData.recommendedPostTime = calculatedGraphColors.recommendedPostTime
+            graphData.recommendedPostDay = calculatedGraphColors.mostLikedPostDay.split(' ')[0];
+            return graphData
+        }else return undefined
+    }
+    calculateAverageLikes = (graphData) => {
+        for(var i=0; i<graphData.x.length-1; i++){
+            var postLikes = graphData.y[i]
+            var countOfPosts = 1
+            if(graphData.x[i] === graphData.x[i+1]){ 
+                for(
+                    var j=i+1;
+                    j<graphData.x.length
+                    &&
+                    graphData.x[i]===graphData.x[j];
+                    j++,
+                    countOfPosts++
+                ){
+                    postLikes+=graphData.y[j]
+                }
+                graphData.x[i]+=(' - (' + countOfPosts + ' posts)')
+                graphData.y[i] = postLikes/countOfPosts
+                graphData.x.splice(i+1, countOfPosts-1)
+                graphData.y.splice(i+1, countOfPosts-1)
+            }
+        }
+        return graphData
+    }
+    calculateGraphColors = (yGraphData, xGraphData) => {
+        const lowColor = 'rgba(255,0,0, 0.6)',
+            mediumColor = 'rgba(255,255,0,0.6)',
+            medhighColor = 'rgba(255, 128, 0, 0.6)',
+            highColor = 'rgba(0,255,0, 0.6)';
+        
+        let mostLikedPost = yGraphData[0], 
+            mostLikedPostDay = xGraphData[0],
+            leastLikedPost = yGraphData[0];
+
+        for(let i = 0; i<yGraphData.length; i++){
+            if(yGraphData[i] > mostLikedPost){
+                mostLikedPost = yGraphData[i];
+                mostLikedPostDay = xGraphData[i];
+            } 
+            else if(yGraphData[i] < leastLikedPost){
+                leastLikedPost = yGraphData[i];
+            } 
+        }
+        let threshHold = mostLikedPost-leastLikedPost,
+            lowThreshhold = leastLikedPost + threshHold*(1/3),
+            medThreshhold = leastLikedPost + threshHold*(2/3);
+
+        let graphColors = yGraphData.map(data => {
+            if(data <= lowThreshhold) return lowColor
+            else if(data <= medThreshhold) return mediumColor
+            else if(data > medThreshhold && data < mostLikedPost) return medhighColor
+            else return highColor
+        });
+        return {
+            graphColors: graphColors,
+            mostLikedPostDay: mostLikedPostDay
+        }
     }
     render() {
-        return (
-            <div>
-                
-            </div>
-        )
+        const graphData = this.parseGraphData()
+        if(graphData){
+            //this.props.bestPostTime('bestPostDay', graphData.recommendedPostDay)
+            const xData = graphData.x
+            const yData = graphData.y
+            const colors = graphData.graphColors
+            const chartData = {
+                labels: xData,
+                datasets: [{
+                    label: 'Average Likes',
+                    data: yData,
+                    backgroundColor: colors
+                }]
+            }
+            return (
+                <section className="graph-likes-at-time-component graph row center-x">
+                    <Bar
+                        data={chartData}
+                        options={
+                            {
+                                title:{
+                                    display:true,
+                                    //text:'- Average likes of posts on days of the week -',
+                                    fontSize:25
+                                },
+                                legend:{
+                                    display: false,
+                                    position:'top'
+                                }
+                            }
+                        }
+                    />
+                </section>
+            )
+        } else {
+            return null
+        }
+        
     }
 }
 /*
 import React, { Component } from 'react'
-import {Bar} from 'react-chartjs-2'
+
 
 class GraphLikesOnDay extends Component{
     constructor(props){

@@ -10,17 +10,24 @@ import * as serviceWorker from './serviceWorker';
 
 import endpoints from './instagram.config';
 
+import NotFound from './components/NotFound/NotFound';
 import Header from './components/Header/Header';
 import About from './components/About/About';
 import Analytics from './components/Analytics/Analytics';
 import Footer from './components/Footer/Footer';
+import Home from './components/Home/Home';
 
 class App extends Component{
     constructor(){
         super();
-        let token = window.location.href.split('=')[1];
+        //let token = window.location.href.split('=')[1];
+        let accessTokens = {
+            rachael: `332134287.9127845.66991ecf3e4641a9b07b2e96007c0de1`,
+            michael: `14239172.9127845.3c45e3dd3d60444b90ba993592248d21`
+
+        }
         this.state = {
-            token,
+            token: accessTokens.rachael,
             loading: false,
             userPosts: undefined,
             userInfo: undefined
@@ -55,14 +62,17 @@ class App extends Component{
             .then(resJSON => {
                 this.setState({
                     userPosts: resJSON.data.map(post => {
-                        return {
-                            createdDate: post.created_time,
-                            image: post.images.standard_resolution.url,
-                            caption: post.caption.text
-                        }
+                            if (post['type'] === 'image' || post['type'] === 'carousel') {
+                                return ({
+                                    postDate: new Date(post['created_time'] * 1000),
+                                    postUrl: post['images']['standard_resolution']['url'],
+                                    postLikes: post['likes']['count'],
+                                    postCaption: post['caption']['text']
+                                })
+                            }
+                        }).reverse()
                     })
-                });
-            })
+                })
             .then(() => {
                 this.setState({ loading: false });
             })
@@ -87,49 +97,39 @@ class App extends Component{
                         userInfo={this.state.userInfo}
                     />
                     <Switch>
-                        <main>
-                            {
-                                /* <Route
-                                exact
-                                path="/"
-                                component={(props) => 
-                                    <Home {...props}
-                                        loggedIn={this.state.loggedIn}
-                                    />
-                                }
-                            />
-                            <Route
-                                path="/portal"
-                                component={(props)=> 
-                                    <Portal {...props}
-                                        loggedIn={this.state.loggedIn}
-                                    />
-                                }
-                            /> */}
-                            <Route
-                                path={"/analytics"}
-                                component={ (props) =>
-                                    <Analytics {...props}
-                                           
-                                    />
-                                }
+                        <Route
+                            path="/"
+                            exact
+                            component={(props) => 
+                                <Home {...props}/>
+                            }
+                        />
+                        <Route
+                            path="/analytics"
+                            component={ (props) =>
+                                <Analytics {...props}
+                                    loading={this.state.loading}
+                                    isLoggedIn={this.state.token ? true : false }
+                                    userPosts={this.state.userPosts} 
+                                />
+                            }
 
-                            />
-                            <Route
-                                path={"/about"}
-                                component={ (props) =>  
-                                    <About {...props}/>
-                                }
-                            />
-                        </main>
+                        />
+                        <Route
+                            path="/about"
+                            component={ (props) =>  
+                                <About {...props}/>
+                            }
+                        />
+                        <Route
+                            component={NotFound}
+                        />
                     </Switch>
                     <Footer/>
                 </div>
-            </BrowserRouter>
-            
+            </BrowserRouter>  
         );
     }
 }
 ReactDOM.render(<App />, document.getElementById('root'));
-
 serviceWorker.unregister();

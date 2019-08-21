@@ -18,6 +18,8 @@ Front-End/src/instagram.config.js
 .env.test.local
 .env.production.local
 
+.vscode/
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
