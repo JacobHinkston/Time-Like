@@ -94,9 +94,41 @@ export default class Analytics extends Component {
                                             <React.Fragment>
                                                 {
                                                     window.location.pathname.split("/")[3] === undefined ? (
-                                                        <div>
-                                                            <h1>Analytics</h1>
-                                                            <p>Welcome to Analytics!</p>
+                                                        <div className="analytics-summary">
+                                                            <h2
+                                                                className="analytics-header"
+                                                            >
+                                                                Welcome, {this.props.userInfo.fullName}!
+                                                            </h2>
+                                                            <div className="row center-y center-x">
+                                                                <div className="col-1 row center-x center-y">
+                                                                    <img 
+                                                                        src={this.props.userInfo.profilePicture}
+                                                                        alt="/assets/spinner.gif"
+                                                                    />
+                                                                </div>
+                                                                <div className="col-2 col">
+                                                                    <div>
+                                                                        <h4>
+                                                                            {this.props.userInfo.userName}
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div className="row">
+                                                                        <p>
+                                                                             
+                                                                        </p>
+                                                                        <p>
+
+                                                                        </p>
+                                                                        <p>
+                                                                            
+                                                                        </p>
+                                                                    </div>
+                                                                    <div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     ) : (
                                                         <Switch>

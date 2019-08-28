@@ -14,7 +14,7 @@ export default class Misc extends Component {
     }
     render() {
         return (
-            <div className="misc-tools-component row center-x">
+            <div className="misc-tools-component">
                 <Switch>
                     <Route
                         path="/analytics/misc/mostliked"
