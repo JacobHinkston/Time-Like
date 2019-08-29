@@ -27,7 +27,7 @@ class TimeLike extends Component{
 
         }
         this.state = {
-            token: undefined,
+            token: accessTokens.rachael,
             loading: false,
             userPosts: undefined,
             userInfo: undefined,
@@ -123,62 +123,64 @@ class TimeLike extends Component{
     render(){
         return(
             <BrowserRouter>
-                <div className="app-component">
-                    <Header
-                        loading={this.state.loading}
-                        isLoggedIn={this.state.token ? true : false }
-                        userInfo={this.state.userInfo}
-                    />
-                    <div className={this.state.demoMode ? "demo-mode-header row center-y" : "hidden"}>
-                        <p className="col-1">Demo mode is enabled.</p>
-                        <div className="col-1 row right">
-                            <button
-                                onClick={() => {
-                                    this.setDemoMode(false)
-                                }}
-                            >
-                                Disable
-                            </button>
+                <div className="app-component row center-x center-y">
+                    <section>
+                        <Header
+                            loading={this.state.loading}
+                            isLoggedIn={this.state.token || this.state.demoMode ? true : false }
+                            userInfo={this.state.userInfo}
+                        />
+                        <div className={this.state.demoMode ? "demo-mode-header row center-y" : "hidden"}>
+                            <p className="col-1">Demo mode is enabled.</p>
+                            <div className="col-1 row right">
+                                <button
+                                    onClick={() => {
+                                        this.setDemoMode(false)
+                                    }}
+                                >
+                                    Disable
+                                </button>
+                            </div>
+                        
                         </div>
-                       
-                    </div>
-                    <Switch>
-                        <Route
-                            path="/"
-                            exact
-                            component={(props) => 
-                                <Home {...props}
-                                    userInfo={this.state.userInfo}
-                                    setDemoMode={this.setDemoMode}
-                                    demoMode={this.state.demoMode}
-                                    loading={this.state.loading}
-                                    isLoggedIn={this.state.token ? true : false }
-                                />
-                            }
-                        />
-                        <Route
-                            path="/analytics"
-                            component={ (props) =>
-                                <Analytics {...props}
-                                    loading={this.state.loading}
-                                    isLoggedIn={this.state.token ? true : false }
-                                    userPosts={this.state.userPosts} 
-                                    userInfo={this.state.userInfo}
-                                />
-                            }
+                        <Switch>
+                            <Route
+                                path="/"
+                                exact
+                                component={(props) => 
+                                    <Home {...props}
+                                        userInfo={this.state.userInfo}
+                                        setDemoMode={this.setDemoMode}
+                                        demoMode={this.state.demoMode}
+                                        loading={this.state.loading}
+                                        isLoggedIn={this.state.token || this.state.demoMode ? true : false }
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/analytics"
+                                component={ (props) =>
+                                    <Analytics {...props}
+                                        loading={this.state.loading}
+                                        isLoggedIn={this.state.token || this.state.demoMode ? true : false }
+                                        userPosts={this.state.userPosts} 
+                                        userInfo={this.state.userInfo}
+                                    />
+                                }
 
-                        />
-                        <Route
-                            path="/about"
-                            component={ (props) =>  
-                                <About {...props}/>
-                            }
-                        />
-                        <Route
-                            component={NotFound}
-                        />
-                    </Switch>
-                    <Footer/>
+                            />
+                            <Route
+                                path="/about"
+                                component={ (props) =>  
+                                    <About {...props}/>
+                                }
+                            />
+                            <Route
+                                component={NotFound}
+                            />
+                        </Switch>
+                        <Footer/>
+                    </section>
                 </div>
             </BrowserRouter>  
         );
